@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iso_project image_name="../../target/use-tilemaps.iso" cue_sheet="use-tilemaps.cue" no_xa="1">
+	<track type="data">
+		<license file="../../tools/LICENSEE.DAT"/>
+		<directory_tree>
+			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
+			<file name="MAIN.EXE"		type="data"	source="use-tilemaps.ps-exe"/>
+			
+			<!-- Game objects -->
+			<file name="PLAYER.TIM"		type="data"	source="../../assets/tim/player.tim"/>
+
+			<!-- Tile maps -->
+			<file name="L1_WRLD.JSON"	type="data"	source="../../assets/tilemaps/l1/json/l1_wrld.json"/>
+
+			<!-- Tile sets -->
+			<file name="TS8_TL.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_tl.tim"/>
+			<file name="TS8_TR.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_tr.tim"/>
+			<file name="TS8_BL.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_bl.tim"/>
+			<file name="TS8_BR.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_br.tim"/>
+			<!-- Fonts -->
+			<file name="FONT.TIM"		type="data"	source="../../assets/tim/font.tim"/>
+
+			<!-- Add your own files or folders here -->
+			<dummy sectors="1024"/>
+			
+		</directory_tree>
+	</track>
+</iso_project>

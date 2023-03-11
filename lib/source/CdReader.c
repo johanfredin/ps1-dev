@@ -1,0 +1,84 @@
+#include <sys/types.h>
+#include <stdlib.h>
+
+#include "../header/CdReader.h"
+#include "../header/Logger.h"
+#include "../header/MemUtils.h"
+#include "../header/StrUtils.h"
+
+CdrData *cdr_create_data_entry(char *name) {
+    CdrData *asset = MEM_MALLOC_3(CdrData);
+    asset->name = name;
+    asset->file = NULL;
+    asset->sectors = 0;
+    asset->pos.track = asset->pos.minute = asset->pos.second = asset->pos.sector = 0;
+    return asset;
+}
+
+CdrData *cdr_find_data_entry(char* name, CdrData **assets, u_char assets_cnt) {
+    u_char i;
+    for(i = 0; i < assets_cnt; i++) {
+        if(STR_EQ(assets[i]->name, name)) {
+            logr_log(TRACE, "CdReader.c", "cdr_find_data_entry", "Name=%s, found at index=%d", assets[i]->name, i);
+            return assets[i];
+        }
+    }
+    logr_log(ERROR, "CdReader.c", "cdr_find_data_entry", "No CdrData with name='%s' in passed in array, terminating...", name);
+    exit(1);
+}
+
+CdrData *cdr_read_file(char *file_path) {
+    CdrData *cdr_data;
+    DslFILE temp_file_info;
+    DslFILE *res;
+
+    char file_path_raw[16];
+    u_long sectors_size;
+    u_long sectors_needed;
+
+    cdr_data = cdr_create_data_entry(file_path);
+
+    // Get raw file path
+    strcpy(file_path_raw, "\\");
+    strcat(file_path_raw, cdr_data->name);
+    strcat(file_path_raw, ";1");
+    logr_log(DEBUG, "CdReader.c", "cdr_read_file", "Loading file from CD: %s", file_path_raw);
+
+    // Search for file on disc
+    res = DsSearchFile(&temp_file_info, file_path_raw);
+    if (res == CDR_FILE_NOT_FOUND) {
+        logr_log(ERROR, "CdReader.c", "cdr_read_file", "File=%s not found, terminating...", cdr_data->name);
+        exit(1);
+    }
+    if ((long)res == CDR_INVALID_READ) {
+        logr_log(ERROR, "CdReader.c", "cdr_read_file", "CDR Read error for file=%s, terminating...", cdr_data->name);
+        exit(1);
+    }
+
+    cdr_data->pos = res->pos;
+
+    // Read the file if it was found
+    if (temp_file_info.size > 0) {
+        logr_log(TRACE, "CdReader.c", "cdr_read_file", "file found");
+        logr_log(TRACE, "CdReader.c", "cdr_read_file", "file size: %lu", temp_file_info.size);
+        sectors_size = temp_file_info.size + (CDR_SECTOR % temp_file_info.size);
+        sectors_needed = (sectors_size + CDR_SECTOR - 1) / CDR_SECTOR;
+        logr_log(TRACE, "CdReader.c", "cdr_read_file", "file buffer size needed: %d", sectors_size);
+        logr_log(TRACE, "CdReader.c", "cdr_read_file", "sectors needed: %d", sectors_needed);
+        cdr_data->file = MEM_MALLOC_3_CUS_SIZE(u_long, sectors_size + CDR_SECTOR);
+        DsRead(&temp_file_info.pos, (int) sectors_needed, cdr_data->file, DslModeSpeed);
+
+        while (DsReadSync(NULL)) {
+            // Wait for null...
+        }
+
+        cdr_data->sectors = sectors_needed;
+        logr_log(INFO, "CdReader.c", "cdr_read_file", "File %s loaded from CD", file_path);
+    } else {
+        logr_log(ERROR, "CdReader.c", "cdr_read_file", "File %s file not found on CD, terminating...", file_path);
+        exit(1);
+    }
+
+    return cdr_data;
+}
+

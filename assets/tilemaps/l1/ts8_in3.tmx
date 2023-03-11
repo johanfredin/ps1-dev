@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="8" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="23">
+ <editorsettings>
+  <export target="06.json" format="json"/>
+ </editorsettings>
+ <properties>
+  <property name="offset_x" type="int" value="64"/>
+  <property name="offset_y" type="int" value="32"/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/ts8_br.tsx"/>
+ <tileset firstgid="257" source="../tilesets/ts8_tl.tsx"/>
+ <tileset firstgid="513" source="../tilesets/ts8_in.tsx"/>
+ <tileset firstgid="769" source="../tilesets/ts8_bl.tsx"/>
+ <layer id="10" name="bg0" width="8" height="12">
+  <properties>
+   <property name="layer_type" value="bg"/>
+   <property name="prio" type="int" value="0"/>
+  </properties>
+  <data encoding="csv">
+890,890,890,890,890,890,890,890,
+678,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+530,530,530,530,530,530,530,530,
+874,874,875,530,530,873,874,874
+</data>
+ </layer>
+ <layer id="9" name="bg" width="8" height="12">
+  <properties>
+   <property name="layer_type" value="bg"/>
+   <property name="prio" type="int" value="1"/>
+  </properties>
+  <data encoding="csv">
+234,0,0,0,0,0,0,233,
+0,0,0,0,0,999,1000,233,
+234,0,0,0,0,1015,1016,233,
+234,0,0,0,0,0,0,233,
+234,998,0,0,0,0,0,233,
+234,1014,0,577,578,579,0,233,
+234,986,0,593,594,595,0,233,
+234,0,0,0,0,0,0,233,
+234,0,0,0,0,0,0,233,
+234,0,0,0,0,0,0,233,
+234,0,0,0,0,0,0,233,
+0,0,0,221,221,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#ff0000" id="4" name="bounds">
+  <object id="1" x="0" y="0" width="4" height="192"/>
+  <object id="4" x="124" y="0" width="4" height="176"/>
+  <object id="6" x="4" y="0" width="120" height="16"/>
+  <object id="11" x="4" y="176" width="44" height="16"/>
+  <object id="12" x="80" y="176" width="48" height="16"/>
+  <object id="18" x="80" y="16" width="32" height="32"/>
+  <object id="19" x="20" y="80" width="8" height="8"/>
+  <object id="21" x="16" y="100" width="16" height="4"/>
+ </objectgroup>
+ <objectgroup color="#0055ff" id="8" name="teleports">
+  <object id="15" x="48" y="192" width="32" height="1">
+   <properties>
+    <property name="dest_frame" type="int" value="2"/>
+    <property name="dest_x" type="int" value="496"/>
+    <property name="dest_y" type="int" value="128"/>
+   </properties>
+  </object>
+  <object id="17" x="4" y="16" width="8" height="12">
+   <properties>
+    <property name="dest_frame" type="int" value="5"/>
+    <property name="dest_x" type="int" value="300"/>
+    <property name="dest_y" type="int" value="24"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

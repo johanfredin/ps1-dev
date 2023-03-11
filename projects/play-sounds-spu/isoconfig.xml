@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iso_project image_name="../../target/play-sounds-spu.iso" cue_sheet="play-sounds-spu.cue" no_xa="1">
+	<track type="data">
+		<license file="../../tools/LICENSEE.DAT"/>
+		<directory_tree>
+			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
+			<file name="MAIN.EXE"		type="data"	source="play-sounds-spu.ps-exe"/>
+
+			<!-- VAGs -->
+			<file name="STEP.VAG"		type="data"	source="../../assets/vag/STEP.VAG"/>
+			<file name="HPUP.VAG"		type="data"	source="../../assets/vag/HPUP.VAG"/>
+
+			<dummy sectors="1024"/>
+
+		</directory_tree>
+	</track>
+</iso_project>

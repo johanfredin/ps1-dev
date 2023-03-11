@@ -1,0 +1,78 @@
+<tim_project>
+    <properties buffer_res="2" buffer_order="0"/>
+    <tim_group name="global">
+        <tim file="alola.tim" source="..\img\alola.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="psyduck.tim" source="..\img\psyduck.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="player.tim" source="..\img\hero.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="raichu.tim" source="..\img\raichu.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="raichu_2.tim" source="..\img\raichu_2.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="font.tim"/>
+        <tim file="fntwht8.tim" source="..\img\fnt_white.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+    </tim_group>
+</tim_project>

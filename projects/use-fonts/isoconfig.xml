@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iso_project image_name="../../target/use-fonts.iso" cue_sheet="use-fonts.cue" no_xa="1">
+	<track type="data">
+		<license file="../../tools/LICENSEE.DAT"/>
+		<directory_tree>
+			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
+			<file name="MAIN.EXE"		type="data"	source="use-fonts.ps-exe"/>
+
+			<!-- Fonts -->
+			<file name="FONT.TIM"		type="data"	source="../../assets/tim/font.tim"/>
+			<file name="FNTWHT8.TIM"		type="data"	source="../../assets/tim/fntwht8.tim"/>
+
+			<!-- Add your own files or folders here -->
+			<dummy sectors="1024"/>
+			
+		</directory_tree>
+	</track>
+</iso_project>

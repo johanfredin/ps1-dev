@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iso_project image_name="../../target/tim-loading.iso" cue_sheet="tim-loading.cue" no_xa="1">
+	<track type="data">
+		<license file="../../tools/LICENSEE.DAT"/>
+		<directory_tree>
+			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
+			<file name="MAIN.EXE"		type="data"	source="tim-loading.ps-exe"/>
+			
+			<file name="ALOLA_8.TIM"		type="data"	source="tim/ALOLA_8.TIM"/>
+			<file name="RAICHU_4.TIM"		type="data"	source="tim/RAICHU_4.TIM"/>
+			<file name="TREES_16.TIM"		type="data"	source="tim/TREES_16.TIM"/>
+			<file name="TS8_TL.TIM"			type="data"	source="tim/TS8_TL.tim"/>
+
+			<!-- Add your own files or folders here -->
+			<dummy sectors="1024"/>
+			
+		</directory_tree>
+	</track>
+</iso_project>

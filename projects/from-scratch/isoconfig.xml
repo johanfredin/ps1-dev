@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iso_project image_name="../../target/from-scratch.iso" cue_sheet="from-scratch.cue" no_xa="1">
+	<track type="data">
+		<license file="../../tools/LICENSEE.DAT"/>
+		<directory_tree>
+			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
+			<file name="MAIN.EXE"		type="data"	source="from-scratch.ps-exe"/>
+
+			<!-- Player -->
+			<file name="PLAYER.TIM"		type="data"	source="../../assets/tim/player.tim"/>
+			
+			<!-- Enemies -->
+			<file name="PSYDUCK.TIM"	type="data"	source="../../assets/tim/psyduck.tim"/>
+			<file name="RAICHU.TIM"		type="data"	source="../../assets/tim/raichu.tim"/>
+			<file name="RAICHU_2.TIM"	type="data"	source="../../assets/tim/raichu_2.tim"/> 
+			<file name="ALOLA.TIM"		type="data"	source="../../assets/tim/alola.tim"/>
+
+			<!-- Tile maps -->
+			<file name="L1_WRLD.JSON"	type="data"	source="../../assets/tilemaps/l1/json/l1_wrld.json"/>
+			<file name="TS8_IN1.JSON"	type="data"	source="../../assets/tilemaps/l1/json/ts8_in1.json"/>
+			<file name="TS8_IN2.JSON"	type="data"	source="../../assets/tilemaps/l1/json/ts8_in2.json"/>
+			<file name="TS8_IN3.JSON"	type="data"	source="../../assets/tilemaps/l1/json/ts8_in3.json"/>
+			
+			<!-- Tile sets -->
+			<file name="TS8_TL.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_tl.tim"/>
+			<file name="TS8_TR.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_tr.tim"/>
+			<file name="TS8_BL.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_bl.tim"/>
+			<file name="TS8_BR.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_br.tim"/>
+			<file name="TS8_IN.TIM"		type="data"	source="../../assets/tilemaps/tim/ts8_in.tim"/>
+
+			<!-- VAGs -->
+			<file name="HPUP.VAG"		type="data"	source="../../assets/vag/HPUP.VAG"/>
+			<file name="STEP.VAG"		type="data"	source="../../assets/vag/STEP2.VAG"/>
+
+			<!-- Fonts -->
+			<file name="FONT.TIM"		type="data"	source="../../assets/tim/font.tim"/>
+
+			<!-- Add your own files or folders here -->
+			<dummy sectors="1024"/>
+		</directory_tree>
+	</track>
+</iso_project>

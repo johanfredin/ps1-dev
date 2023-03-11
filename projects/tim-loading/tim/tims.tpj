@@ -1,0 +1,42 @@
+<tim_project>
+    <properties buffer_res="2" buffer_order="0"/>
+    <tim_group name="global">
+        <tim file="alola_8.tim" source="..\..\..\assets\img\alola_2.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="trees_16.tim" source="..\..\..\assets\img\trees.png">
+            <import_parameters>
+                <target_bpp>16</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="TS8_TL.tim" source="..\..\..\assets\tilemaps\tilesets\ts8_tl.png">
+            <import_parameters>
+                <target_bpp>8</target_bpp>
+                <dithering>0</dithering>
+                <quantize_mode>0</quantize_mode>
+                <set_color_stp>0</set_color_stp>
+                <set_black_stp>0</set_black_stp>
+                <transparency_mode>1</transparency_mode>
+                <alpha_threshold>127</alpha_threshold>
+                <alpha_stp_threshold>255</alpha_stp_threshold>
+            </import_parameters>
+        </tim>
+        <tim file="RAICHU_4.TIM"/>
+    </tim_group>
+</tim_project>

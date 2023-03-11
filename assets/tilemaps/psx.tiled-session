@@ -1,0 +1,359 @@
+{
+    "activeFile": "L1/json/ts8_in1.json",
+    "expandedProjectPaths": [
+        "L1",
+        ".",
+        "tilesets",
+        "L1/json"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "L1/04.tmx": {
+            "scale": 4.472916666666666,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 72.32417326502096,
+                "y": 56.11551001397298
+            }
+        },
+        "L1/05.tmx": {
+            "scale": 2.838690476190476,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 176.66596770811492,
+                "y": 110.96665967708114
+            }
+        },
+        "L1/06.tmx": {
+            "scale": 3.096634615384615,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 72.17512808570098,
+                "y": 133.69352585002326
+            }
+        },
+        "L1/0_0.tmx": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 148.5,
+                "y": 175.5
+            }
+        },
+        "L1/0_0.tmx#tileset_outside": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "L1/0_0.tmx#tinySLATES_8b_bottom_left": {
+            "dynamicWrapping": false
+        },
+        "L1/0_0.tmx#tinySLATES_8b_top_left": {
+            "scaleInDock": 1
+        },
+        "L1/0_1.tmx": {
+            "scale": 2.6087890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 177.47697836340492,
+                "y": 77.62222055850864
+            }
+        },
+        "L1/0x1.tmx": {
+            "scale": 1.714453125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 182.56550467076784,
+                "y": 92.15766689450902
+            }
+        },
+        "L1/1_0.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 54.333333333333314,
+                "y": 280
+            }
+        },
+        "L1/1_1.tmx": {
+            "scale": 1.714453125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 221.3533834586466,
+                "y": 238.56003645477327
+            }
+        },
+        "L1/L1_wrld.tmx": {
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 320,
+                "y": 240
+            }
+        },
+        "L1/bg_2.tmx": {
+            "scale": 2.4858333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 606.2353335568221,
+                "y": 293.26181696278917
+            }
+        },
+        "L1/json/L1_wrld.json": {
+            "scale": 2.4858333333333333,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 319.8122695273215,
+                "y": 239.75863224941338
+            }
+        },
+        "L1/json/ts8_bl.json": {
+            "scale": 4.852916666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.00686872155924,
+                "y": 120.03090924701641
+            }
+        },
+        "L1/json/ts8_in1.json": {
+            "scale": 4,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 50.875,
+                "y": 75.25
+            }
+        },
+        "L1/json/ts8_in2.json": {
+            "scale": 5.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 159.9090909090909,
+                "y": 32
+            }
+        },
+        "L1/json/ts8_in3.json": {
+            "scale": 5.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 7.181818181818187,
+                "y": 103.81818181818181
+            }
+        },
+        "L1/json/ts8_large.json": {
+            "scale": 2.4858333333333333,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 265.70566543747907,
+                "y": 240.16091183372444
+            }
+        },
+        "L1/json/ts8_out.json": {
+            "scale": 2.4858333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 265.10224606101235,
+                "y": 239.75863224941332
+            }
+        },
+        "L1/json/ts8_tl.json": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 146.33333333333331,
+                "y": 205.33333333333331
+            }
+        },
+        "L1/json/ts8_world.json": {
+            "scale": 2.4858333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.2145491116326,
+                "y": 240.16091183372444
+            }
+        },
+        "L1/tilesetformattedupdate1.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "L1/tinySLATES [16x16px orthogonal tileset by Ivan Voirol].tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "L1/ts8_bl.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 183.33333333333331,
+                "y": 91.66666666666666
+            }
+        },
+        "L1/ts8_br.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 146.99999999999994,
+                "y": 122.66666666666666
+            }
+        },
+        "L1/ts8_in1.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64,
+                "y": 64
+            }
+        },
+        "L1/ts8_in2.tmx": {
+            "scale": 5.538839285714285,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 159.96131216248892,
+                "y": 32.13669702587249
+            }
+        },
+        "L1/ts8_in3.tmx": {
+            "scale": 6.066145833333334,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 64.12638447668928,
+                "y": 69.7312612689963
+            }
+        },
+        "L1/ts8_large.tmx": {
+            "scale": 2.4858333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.01340931947703,
+                "y": 240.16091183372444
+            }
+        },
+        "L1/ts8_out.tmx": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 320,
+                "y": 239.5
+            }
+        },
+        "L1/ts8_tl.tmx": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 160,
+                "y": 120
+            }
+        },
+        "L1/ts8_tr.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 143.66666666666666,
+                "y": 82.33333333333333
+            }
+        },
+        "L1/ts8_world.tmx": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 279.66666666666663,
+                "y": 153.66666666666666
+            }
+        },
+        "tilesets/tileset_outside.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tilesetformattedupdate1.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tinySLATES_8b_bottom_left.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tinySLATES_8b_bottom_right.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tinySLATES_8b_top_left.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tinySLATES_8b_top_right.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tinyslates_collection.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/ts8_bl.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "tilesets/ts8_br.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "tilesets/ts8_in.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "tilesets/ts8_in1.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/ts8_tl.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "tilesets/ts8_tr.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "C:/psyq/projects/psx-dev/assets/tilemaps/L1/json",
+    "map.lastUsedExportFilter": "JSON map files (*.json)",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "L1/json/L1_wrld.json",
+        "L1/json/ts8_in1.json",
+        "L1/json/ts8_in3.json"
+    ],
+    "project": "psx.tiled-project",
+    "property.type": "int",
+    "recentFiles": [
+        "L1/json/L1_wrld.json",
+        "L1/json/ts8_in3.json",
+        "L1/json/ts8_in1.json",
+        "L1/L1_wrld.tmx",
+        "L1/json/ts8_in2.json",
+        "L1/ts8_in1.tmx",
+        "L1/ts8_in2.tmx",
+        "L1/ts8_bl.tmx",
+        "L1/ts8_in3.tmx",
+        "L1/ts8_tr.tmx",
+        "L1/ts8_world.tmx",
+        "L1/ts8_br.tmx"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.type": 0
+}

@@ -5,9 +5,7 @@
 
 GsOT orderingTable[GPUB_NUM_BUFFERS];
 GsOT_TAG minorOrderingTable[GPUB_NUM_BUFFERS][1 << GPUB_OT_LENGTH_STD];
-
 GPUB_OT gpub_ot[GPUB_NUM_BUFFERS];
-GPUB_OT *gpub_curr_ot;
 
 // Define screen width and height, required by GPUBase
 const u_short gpub_screen_w = 320;

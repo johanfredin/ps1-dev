@@ -1,6 +1,6 @@
 .PHONY: all cleansub
 all:
-	../../tools/mkpsxiso.exe -y isoconfig.xml
+	mkpsxiso -y isoconfig.xml
 	rm -f play-sounds-libsnd.cue play-sounds-libsnd.bin
 	rm -f *.map
 	rm -f *.elf

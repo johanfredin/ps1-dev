@@ -14,9 +14,7 @@ const u_short gpub_screen_h = 240;
 
 GsOT orderingTable[GPUB_NUM_BUFFERS][NUM_OTS];
 GsOT_TAG minorOrderingTable[GPUB_NUM_BUFFERS][NUM_OTS][1 << GPUB_OT_LENGTH_STD];
-
 GPUB_OT gpub_ot[GPUB_NUM_BUFFERS][NUM_OTS];
-GPUB_OT *gpub_curr_ot;
 
 Player *player;
 Camera camera;

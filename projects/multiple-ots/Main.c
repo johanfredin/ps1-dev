@@ -9,7 +9,6 @@
 #include "../../lib/header/Logger.h"
 #include "../../lib/header/MemUtils.h"
 #include "../../lib/header/CollisionHandler.h"
-#include "../../lib/header/FntLogger.h"
 
 // Constants
 #define NUM_PLAYERS 1
@@ -27,7 +26,6 @@ GsOT orderingTable[GPUB_NUM_BUFFERS][NUM_OTS];
 GsOT_TAG minorOrderingTable[GPUB_NUM_BUFFERS][NUM_OTS][1 << GPUB_OT_LENGTH_STD];
 
 GPUB_OT gpub_ot[GPUB_NUM_BUFFERS][NUM_OTS];
-GPUB_OT *gpub_curr_ot;
 
 Camera camera;
 DlgBox dlg_box_fixed;

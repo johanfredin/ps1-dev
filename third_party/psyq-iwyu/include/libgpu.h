@@ -721,7 +721,7 @@ extern int KanjiFntPrint(...);
 #else
 #ifndef _FNTPRINT_
 #define _FNTPRINT_
-extern int FntPrint();
+extern int FntPrint(void *, ...);
 #endif /* _FNTPRINT_ */
 #ifndef _KANJIFNTPRINT_
 #define _KANJIFNTPRINT_

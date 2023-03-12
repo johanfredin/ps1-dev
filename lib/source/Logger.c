@@ -1,8 +1,8 @@
 #include "../header/Logger.h"
 
-#include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #if ENABLED
 char *get_level(unsigned char level) {
@@ -25,7 +25,7 @@ char *get_level(unsigned char level) {
 #endif
 
 void logr_log(unsigned char level, char *src_file, char *src_func, char *msg, ...) {
-#if 0
+#if ENABLED
     va_list args;
     if (LOG_LEVEL >= level) {
         printf("%s - %s - %s - ", get_level(level), src_file, src_func);
@@ -39,25 +39,26 @@ void logr_log(unsigned char level, char *src_file, char *src_func, char *msg, ..
             ++msg;
             switch (*msg) {
                 case 's':
-                    printf("%s", (char *) va_arg(args, char *));
+                    printf("%s", args);
                     break;
                 case 'd':
-                    printf("%d", (int) va_arg(args, int));
+                    printf("%d", args);
                     break;
                 case 'X':
                 case 'x':
-                    printf("%X", (int) va_arg(args, int));
+                    printf("%X", args);
                     break;
                 case 'c':
-                    printf("%c", (char) va_arg(args, char));
+                    printf("%c", args);
                     break;
                 case 'p':
-                    printf("%d", (int) va_arg(args, int));
+                    printf("%d", args);
                     break;
             }
             msg++;
         }
         putchar('\n');
+        va_end(args);
     }
 #endif
 }

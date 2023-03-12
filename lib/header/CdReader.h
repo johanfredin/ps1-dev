@@ -10,7 +10,7 @@
 #define CDR_SECTOR 0x800
 
 #define CDR_FILE_NOT_FOUND NULL
-#define CDR_INVALID_READ -1
+#define CDR_INVALID_READ (-1)
 
 typedef struct CdrData {
     char *name;
@@ -19,7 +19,7 @@ typedef struct CdrData {
     DslLOC pos;
 } CdrData;
 
-#define CDR_INIT()                                                                                  \
+#define CDR_INIT()                                                                                   \
     if(DsInit() != 1) {                                                                              \
         logr_log(ERROR, "CdReader.c", "cdr_init", "LIBDS not initialized properly, terminating..."); \
         exit(1);                                                                                     \

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <iso_project image_name="../../target/play-sounds-cdda.iso" cue_sheet="play-sounds-cdda.cue" no_xa="0">
     <track type="data">
         <license file="../../tools/LICENSEE.DAT"/>

@@ -11,8 +11,6 @@ GsOT orderingTable[GPUB_NUM_BUFFERS];
 GsOT_TAG minorOrderingTable[GPUB_NUM_BUFFERS][1 << GPUB_OT_LENGTH_STD];
 
 GPUB_OT gpub_ot[GPUB_NUM_BUFFERS];
-GPUB_OT *gpub_curr_ot;
-
 DlgBox *dlg_box_fixed;
 Controller g_ctrl;
 

@@ -17,4 +17,3 @@ cmake-build-debug
 *.cbp
 
 third_party/psyq/
-third_party/psyq-iwyu/

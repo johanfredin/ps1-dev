@@ -9,7 +9,7 @@
 #define TRACE 5
 
 #define LOG_LEVEL INFO
-#define ENABLED 1
+#define ENABLED (LOG_LEVEL | OFF)
 
 /**
  * Log a message at specified level

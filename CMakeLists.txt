@@ -1,3 +1,5 @@
+# This file exists just to make Clion happy
+
 cmake_minimum_required(VERSION 3.24)
 project(ps1_dev C)
 
@@ -8,7 +10,6 @@ include_directories(third_party/psyq-iwyu/include)
 
 add_executable(
         ps1_dev
-        main.c
 
         lib/header/AssetManager.h
         lib/header/CdReader.h
@@ -57,4 +58,5 @@ add_executable(
         projects/collision/Main.c
         projects/camera/Main.c
         projects/multiple-ots/Main.c
-        playground/Test.c)
+        projects/hello_cdda/hello_cdda.c
+)

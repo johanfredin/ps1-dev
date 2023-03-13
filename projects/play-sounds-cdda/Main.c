@@ -27,23 +27,10 @@ void print_loc(int i, CdlLOC *loc) {
            loc->minute, loc->second);
 }
 
-CdlLOC *ma_pos() {
-    CdlLOC *l = MEM_MALLOC_3(CdlLOC);
-    l->track = 1;
-    l->minute = 0;
-    l->second=17;
-    l->sector=61;
-    return l;
-}
-
 void retrieve_cdda_audio() {
     CdlLOC loc[100];
     int data[2];
     int n_tocs;
-    int i;
-    CdlLOC *loc2 = ma_pos();
-    u_char track = 0;
-    u_char param[4];
     SpuInit();
     CdInit();
     SpuSetCommonCDMix(SPU_ON);
@@ -55,23 +42,23 @@ void retrieve_cdda_audio() {
     }
 
     printf("n_toc=%d\n", n_tocs);
-    print_loc(0, &loc[0]);
-    print_loc(1, &loc[1]);
-    print_loc(2, &loc[2]);
+//    print_loc(0, &loc[0]);
+//    print_loc(1, &loc[1]);
+//    print_loc(2, &loc[2]);
 
     // Prevent out of bounds pos
-//    for (i = 1; i < n_tocs; i++) {
-//        CdIntToPos(CdPosToInt(&loc[i]) - 74, &loc[i]);
-//        print_loc(i, &loc[i]);
-//    }
+    for (int i = 1; i < 3; i++) {
+        CdIntToPos(CdPosToInt(&loc[i]) - 74, &loc[i]);
+        print_loc(i, &loc[i]);
+    }
 
-    data[0] = CdPosToInt(&loc[2]);
+    data[0] = CdPosToInt(&loc[0]);
     data[1] = 0;
-    param[0] = CdlModeRept | CdlModeDA;
-    CdControl(CdlSetmode, param, 0);
-//    CdPlay(2, data, 0);
+    u_char param = CdlModeRept | CdlModeDA;
+    CdControl(CdlSetmode, &param, 0);
+//    CdPlay(2, &data[0], 0);
     // Play second track
-    CdControl(CdlPlay, (u_char *) data, 0);
+    CdControl(CdlPlay, (u_char *) &loc[1], 0);
 }
 
 int main() {

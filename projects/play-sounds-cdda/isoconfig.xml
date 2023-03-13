@@ -6,14 +6,22 @@
             <file name="SYSTEM.CNF" type="data" source="../../tools/SYSTEM.CNF"/>
             <file name="MAIN.EXE" type="data" source="play-sounds-cdda.ps-exe"/>
 
-            <!-- VAGs -->
-            <file name="SINFONIE.SEQ" type="data" source="../../assets/seq/SINFONIE.SEQ"/>
-            <file name="SAMPLE.SEP" type="data" source="../../assets/sep/SAMPLE.SEP"/>
-            <file name="SIMPLE.VB" type="data" source="../../assets/vab/SIMPLE.VB"/>
-            <file name="SIMPLE.VH" type="data" source="../../assets/vab/SIMPLE.VH"/>
-
             <dummy sectors="1024"/>
+
+            <!-- Sample DA audio file entry.
+
+            DA files SHOULD be put last in the ISO file system or your ISO image may be corrupt.
+            These files do not exists in the data track, but are just links to CDDA audio tracks.
+            A DA file must have a trackid that matches with with a <track>. The trackid is just a
+            string.
+
+            You can still use <track> elements after this, if you want to add further audio tracks
+            that are not referenced by any DA file in the data track.
+            -->
+<!--            <file name="beach.da" trackid="02" type="da"/>-->
+
         </directory_tree>
     </track>
-    <track type="audio" trackid="02" source="../../assets/wav/TEST.wav"/>
+    <track type="audio"  source="../../assets/wav/beach.wav"/>
+    <track type="audio"  source="../../assets/wav/beach.wav"/>
 </iso_project>

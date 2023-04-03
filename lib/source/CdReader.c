@@ -11,7 +11,6 @@ CdrData *cdr_create_data_entry(char *name) {
     asset->name = name;
     asset->file = NULL;
     asset->sectors = 0;
-    asset->pos.track = asset->pos.minute = asset->pos.second = asset->pos.sector = 0;
     return asset;
 }
 
@@ -55,8 +54,6 @@ CdrData *cdr_read_file(char *file_path) {
         exit(1);
     }
 
-    cdr_data->pos = res->pos;
-
     // Read the file if it was found
     if (temp_file_info.size > 0) {
         logr_log(TRACE, "CdReader.c", "cdr_read_file", "file found");
@@ -82,3 +79,22 @@ CdrData *cdr_read_file(char *file_path) {
     return cdr_data;
 }
 
+void cdr_da_play(CdDATrack *track) {
+    if (track->is_playing) {
+        return;
+    }
+
+    int t[] = {track->track, 0};
+    DsPlay(CDR_DA_MODE_REPEAT, t, 0);
+    track->is_playing = 1;
+}
+
+void cdr_da_stop(CdDATrack *track) {
+    if (!(track->is_playing)) {
+        return;
+    }
+
+    int t[] = {0};
+    track->is_playing = DsPlay(CDR_DA_STOP, t, 0);
+    track->is_playing = 0;
+}

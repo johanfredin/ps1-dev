@@ -16,4 +16,7 @@ PSX.Dev-README.md
 cmake-build-debug
 *.cbp
 
+target/*
+
+*.sh
 third_party/psyq/

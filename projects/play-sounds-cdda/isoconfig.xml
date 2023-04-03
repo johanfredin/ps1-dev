@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<iso_project image_name="../../target/play-sounds-cdda.iso" cue_sheet="play-sounds-cdda.cue" no_xa="0">
+<iso_project image_name="../../target/play-sounds-cdda.bin" cue_sheet="../../target/play-sounds-cdda.cue" no_xa="1">
     <track type="data">
         <license file="../../tools/LICENSEE.DAT"/>
         <directory_tree>
@@ -18,10 +18,10 @@
             You can still use <track> elements after this, if you want to add further audio tracks
             that are not referenced by any DA file in the data track.
             -->
-<!--            <file name="beach.da" trackid="02" type="da"/>-->
-
+            <file name="town.da" trackid="01" type="da"/>
+            <file name="inside.da" trackid="02" type="da"/>
         </directory_tree>
     </track>
-    <track type="audio"  source="../../assets/wav/beach.wav"/>
-    <track type="audio"  source="../../assets/wav/beach.wav"/>
+    <track type="audio" trackid="01" source="../../assets/music/town.mp3"/>
+    <track type="audio" trackid="02" source="../../assets/music/indoors.mp3"/>
 </iso_project>

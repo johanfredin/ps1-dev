@@ -11,13 +11,19 @@
 
 #define CDR_FILE_NOT_FOUND NULL
 #define CDR_INVALID_READ (-1)
+#define CDR_DA_MODE_REPEAT 2
+#define CDR_DA_STOP 0
 
 typedef struct CdrData {
     char *name;
     u_long *file;
     u_int sectors;
-    DslLOC pos;
 } CdrData;
+
+typedef struct CdDATrack {
+    u_char track: 7;
+    u_char is_playing: 1
+} CdDATrack;
 
 #define CDR_INIT()                                                                                   \
     if(DsInit() != 1) {                                                                              \
@@ -43,6 +49,7 @@ CdrData *cdr_find_data_entry(char *name, CdrData **assets, unsigned char assets_
  */
 CdrData *cdr_read_file(char *file_path);
 
-CdrData *cdr_read_da(char *file_path);
+void cdr_da_play(CdDATrack *track);
+void cdr_da_stop(CdDATrack *track);
 
 #endif // PSX_CD_READER_H

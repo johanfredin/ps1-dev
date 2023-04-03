@@ -1,6 +1,4 @@
-# This file exists just to make Clion happy
-
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.16)
 project(ps1_dev C)
 
 set(CMAKE_C_STANDARD 99)
@@ -58,5 +56,4 @@ add_executable(
         projects/collision/Main.c
         projects/camera/Main.c
         projects/multiple-ots/Main.c
-        projects/hello_cdda/hello_cdda.c
 )

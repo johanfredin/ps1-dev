@@ -276,6 +276,8 @@ int DsRead2( DslLOC* pos, int mode );
 DslFILE* DsSearchFile( DslFILE* fp, char* name );
 int DsReadFile( char* file, u_long* addr, int nbyte );
 struct EXEC* DsReadExec( char* file );
+
+
 int DsPlay( int mode, int* tracks, int offset );
 
 int DsGetDiskType( void );

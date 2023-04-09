@@ -1,3 +1,4 @@
+#include <libspu.h>
 #include "../../lib/header/AssetManager.h"
 #include "../../lib/header/GPUBase.h"
 #include "../../lib/header/GameObject.h"
@@ -6,11 +7,17 @@
 #include "../../lib/header/MemUtils.h"
 #include "../../lib/header/SoundEffect.h"
 
+
 // Constants
 #define NUM_PLAYERS 1
 #define NUM_OTS 2
 #define OT_MAIN &gpub_ot[gpub_current_buffer][0]
 #define OT_HUD &gpub_ot[gpub_current_buffer][1]
+
+// Voice channels
+#define SFX_WALK SPU_00CH
+#define SFX_HPUP SPU_01CH
+
 
 const u_short gpub_screen_w = 320;
 const u_short gpub_screen_h = 240;

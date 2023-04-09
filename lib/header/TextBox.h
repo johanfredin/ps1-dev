@@ -1,11 +1,6 @@
-//
-// Created 1/1/2022.
-//
-
 #ifndef PSX_DEV_TEXTBOX_H
 #define PSX_DEV_TEXTBOX_H
 
-#include "GPUBase.h"
 #include "TxtHandler.h"
 #include "Controller.h"
 

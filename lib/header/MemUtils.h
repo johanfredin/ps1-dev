@@ -8,11 +8,11 @@
  * Initialize ROM heap using default start addr and size.
  * Must be called before any memory allocation functions
  */
-#define MEM_INIT_HEAP_3() \
-InitHeap3((unsigned long *)MEM_HEAP_START_ADDR, MEM_HEAP_SIZE); \
-logr_log(INFO, "MemUtils.c", "MEM_INIT_HEAP_3", "ROM heap initialized. Start addr=%X, heap size=%X", MEM_HEAP_START_ADDR, MEM_HEAP_SIZE)
+#define MEM_INIT_HEAP_3()                                            \
+    InitHeap3((unsigned long *) MEM_HEAP_START_ADDR, MEM_HEAP_SIZE); \
+    logr_log(INFO, "MemUtils.c", "MEM_INIT_HEAP_3", "ROM heap initialized. Start addr=%X, heap size=%X", MEM_HEAP_START_ADDR, MEM_HEAP_SIZE)
 
-#define MEM_MALLOC_3(type) (type *)malloc3(sizeof(type))
+#define MEM_MALLOC_3(type) (type *) malloc3(sizeof(type))
 
 #define MEM_MALLOC_3_CUS_SIZE(type, size) (type *)malloc3(size)
 #define MEM_CALLOC_3_PTRS(n, t) (t **)calloc3((size_t)n, sizeof(t *))

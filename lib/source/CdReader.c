@@ -1,5 +1,4 @@
 #include <sys/types.h>
-#include <stdlib.h>
 
 #include "../header/CdReader.h"
 #include "../header/Logger.h"

@@ -58,4 +58,5 @@ void gpub_sort_clear(GPUB_OT *ot_to_clear);
 void gpub_init_ot(GPUB_OT *gpub_ot, GsOT *ot, GsOT_TAG *tag, u_short length);
 void gpub_clear_ot(GPUB_OT *gpub_ot);
 void gpub_draw_ot(GPUB_OT *gpub_ot, short offset_x, short offset_y);
+
 #endif // PSX_GPU_BASE_H

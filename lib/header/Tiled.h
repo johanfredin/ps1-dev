@@ -1,10 +1,7 @@
 #ifndef PSX_SPIKE_TILED_H
 #define PSX_SPIKE_TILED_H
 
-#include <sys/types.h>
-
 #include "JSONParser.h"
-
 
 /**
  * Make sure that passed in key=&quot;name&quot;<br>

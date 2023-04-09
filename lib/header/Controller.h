@@ -19,7 +19,6 @@
 #define CTRL_INIT_P1(ctrl) CTRL_INIT(ctrl, CTRL_PLAYER_1)
 
 typedef struct Controller {
-    // Dpad
     int id;
     unsigned int curr_btn;
 } Controller;
@@ -38,8 +37,8 @@ Controller *ctrl_init(int id);
 #define CTRL_DPAD_RIGHT(ctrl) ((ctrl)->curr_btn & PADLright)
 #define CTRL_BTN_INTERACT(ctrl) ((ctrl)->curr_btn & CTRL_P1_INTERACT)
 
-#define CTRL_BTN_ACTION(ctrl) (ctrl)->curr_btn & CTRL_P1_ACTION
-#define CTRL_IS_MOVING(ctrl) (PADLup | PADLdown | PADLright | PADLleft) & (ctrl)->curr_btn
+#define CTRL_BTN_ACTION(ctrl) ((ctrl)->curr_btn & CTRL_P1_ACTION)
+#define CTRL_IS_MOVING(ctrl) ((PADLup | PADLdown | PADLright | PADLleft) & (ctrl)->curr_btn)
 
 #define CTRL_IS_BTN(ctrl, btn) ((ctrl)->curr_btn & (btn))
 

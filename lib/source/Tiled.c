@@ -5,12 +5,19 @@
 #include "../header/MemUtils.h"
 
 void add_tile_layers_to_map(Tile_Map *tm, JSON_Data *jobj_root);
+
 void add_data_to_layer(Tile_Layer *layer, JSON_Data *root);
+
 void add_additional_properties_to_layer(Tile_Layer *layer, JSON_Data *root);
+
 void add_tile_sets_to_map(Tile_Map *tm, JSON_Data *root);
+
 void add_object_layers_to_map(Tile_Map *tm, JSON_Data *root);
+
 void add_teleport_layers_to_map(Tile_Map *tm, JSON_Data *root);
+
 void add_dialog_layers_to_map(Tile_Map *tm, JSON_Data *root);
+
 Tile_Map *malloc_tile_map();
 
 
@@ -235,9 +242,11 @@ void add_object_layers_to_map(Tile_Map *tm, JSON_Data *root) {
     JSON_Data *curr_obj_layer; // Our current json object being iterated
     ObjectLayer_Bounds *ol_root = MEM_MALLOC_3(ObjectLayer_Bounds);
     ObjectLayer_Bounds *ol_curr = ol_root;
-    for (curr_obj_layer = root, objects_cnt = 0; curr_obj_layer != NULL; curr_obj_layer = curr_obj_layer->next, objects_cnt++) {    // Iterate objects
+    for (curr_obj_layer = root, objects_cnt = 0;
+         curr_obj_layer != NULL; curr_obj_layer = curr_obj_layer->next, objects_cnt++) {    // Iterate objects
         JSON_Data *entry_root = (JSON_Data *) curr_obj_layer->value;
-        for (JSON_Data *entry_curr = entry_root; entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
+        for (JSON_Data *entry_curr = entry_root;
+             entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
             char *key = entry_curr->key;
             void *value = entry_curr->value;
 
@@ -267,8 +276,11 @@ void add_teleport_layers_to_map(Tile_Map *tm, JSON_Data *root) {
     JSON_Data *curr_obj_layer; // Our current json object being iterated
     ol_root = MEM_MALLOC_3(ObjectLayer_Teleport);
     ol_curr = ol_root;
-    for (curr_obj_layer = root, objects_cnt = 0;
-         curr_obj_layer != NULL; curr_obj_layer = curr_obj_layer->next, objects_cnt++) {    // Iterate objects
+    for (
+            curr_obj_layer = root, objects_cnt = 0;
+            curr_obj_layer != NULL;
+            curr_obj_layer = curr_obj_layer->next, objects_cnt++
+    ) {
         JSON_Data *entry_root = (JSON_Data *) curr_obj_layer->value;
         JSON_Data *entry_curr;
         for (entry_curr = entry_root; entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
@@ -289,14 +301,13 @@ void add_teleport_layers_to_map(Tile_Map *tm, JSON_Data *root) {
                 ol_curr->y = *(u_int *) value;
             } else if (STR_EQ(key, "properties")) {
                 JSON_Data *props_root = (JSON_Data *) entry_curr->value;
-                JSON_Data *props_curr;
 
                 // Init dest properties to 0 to prevent garbage
                 ol_curr->dest_x = 0;
                 ol_curr->dest_y = 0;
                 ol_curr->dest_frame = 0;
 
-                for (props_curr = props_root; props_curr != NULL; props_curr = props_curr->next) {
+                for (JSON_Data *props_curr = props_root; props_curr != NULL; props_curr = props_curr->next) {
                     JSON_Data *teleport_property_obj = (JSON_Data *) props_curr->value;
                     char *prop_name = (char *) teleport_property_obj->value;
                     short prop_value = *(short *) teleport_property_obj->next->next->value;
@@ -321,15 +332,16 @@ void add_teleport_layers_to_map(Tile_Map *tm, JSON_Data *root) {
 
 void add_dialog_layers_to_map(Tile_Map *tm, JSON_Data *root) {
     u_char objects_cnt;
-    ObjectLayer_Dialog *ol_root, *ol_curr; // Our object sprite_layers linked list
     JSON_Data *curr_obj_layer; // Our current json object being iterated
-    ol_root = MEM_MALLOC_3(ObjectLayer_Dialog);
-    ol_curr = ol_root;
+    ObjectLayer_Dialog *ol_root = MEM_MALLOC_3(ObjectLayer_Dialog);
+    ObjectLayer_Dialog *ol_curr = ol_root;
     for (curr_obj_layer = root, objects_cnt = 0;
-         curr_obj_layer != NULL; curr_obj_layer = curr_obj_layer->next, objects_cnt++) {    // Iterate objects
+         curr_obj_layer != NULL;
+         curr_obj_layer = curr_obj_layer->next,
+         objects_cnt++
+    ) {
         JSON_Data *entry_root = (JSON_Data *) curr_obj_layer->value;
-        JSON_Data *entry_curr;
-        for (entry_curr = entry_root; entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
+        for (JSON_Data *entry_curr = entry_root; entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
             char *key = entry_curr->key;
             void *value = entry_curr->value;
 
@@ -346,15 +358,13 @@ void add_dialog_layers_to_map(Tile_Map *tm, JSON_Data *root) {
             } else if (STR_EQ(key, "y")) {
                 ol_curr->y = *(u_int *) value;
             } else if (STR_EQ(key, "properties")) {
-                JSON_Data *props_root = (JSON_Data *) entry_curr->value;
-                JSON_Data *props_curr;
-
                 // Init dest properties to prevent garbage
                 ol_curr->text = NULL;
                 ol_curr->max_chars = 0;
                 ol_curr->n_lines = 1;
 
-                for (props_curr = props_root; props_curr != NULL; props_curr = props_curr->next) {
+                JSON_Data *props_root = (JSON_Data *) entry_curr->value;
+                for (JSON_Data *props_curr = props_root; props_curr != NULL; props_curr = props_curr->next) {
                     JSON_Data *teleport_property_obj = (JSON_Data *) props_curr->value;
                     char *prop_name = (char *) teleport_property_obj->value;
                     void *prop_value = teleport_property_obj->next->next->value;
@@ -378,9 +388,8 @@ void add_dialog_layers_to_map(Tile_Map *tm, JSON_Data *root) {
 }
 
 void add_additional_properties_to_layer(Tile_Layer *layer, JSON_Data *root) {
-    JSON_Data *curr;
     // Iterate properties array
-    for (curr = root; curr != NULL; curr = curr->next) {
+    for (JSON_Data *curr = root; curr != NULL; curr = curr->next) {
         JSON_Data *curr_props = (JSON_Data *) curr->value;
 
         // Fetch the 2 properties needed in json object
@@ -402,8 +411,7 @@ void add_data_to_layer(Tile_Layer *layer, JSON_Data *root) {
     Layer_Data *data_root = MEM_MALLOC_3(Layer_Data);
     u_short active_sprites_cnt = 0;
     Layer_Data *data = data_root;
-    JSON_Data *curr;
-    for (curr = root; curr != NULL; curr = curr->next) {
+    for (JSON_Data *curr = root; curr != NULL; curr = curr->next) {
         data->id = *(u_short *) curr->value;
         if (data->id > 0) {
             active_sprites_cnt++;
@@ -419,9 +427,12 @@ void add_tile_sets_to_map(Tile_Map *tm, JSON_Data *root) {
     JSON_Data *json_curr;
     Tile_Set *ts_root = MEM_MALLOC_3(Tile_Set);
     Tile_Set *ts_curr = ts_root;
-    for (json_curr = root, tilesets_cnt = 0; json_curr != NULL; json_curr = json_curr->next, tilesets_cnt++) {
-        JSON_Data *json_tileset;
-        for (json_tileset = (JSON_Data *) json_curr->value; json_tileset != NULL; json_tileset = json_tileset->next) {
+    for (
+            json_curr = root, tilesets_cnt = 0;
+            json_curr != NULL;
+            json_curr = json_curr->next, tilesets_cnt++
+    ) {
+        for (JSON_Data *json_tileset = (JSON_Data *) json_curr->value; json_tileset != NULL; json_tileset = json_tileset->next) {
             if (STR_EQ(json_tileset->key, "firstgid")) {
                 ts_curr->firstgid = *(u_short *) json_tileset->value;
             } else if (STR_EQ(json_tileset->key, "source")) {

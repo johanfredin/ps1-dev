@@ -12,13 +12,11 @@ GsSPRITE *map_tile(u_short id, u_short x, u_short y, FR_TileSet *tile_sets, u_ch
 void tf_add_layers_to_frame(Frame *frame, FR_TileSet *tile_sets, u_char n_tilesets, Tile_Map *map) {
     SpriteLayer *root_bg_layer = NULL;
     SpriteLayer *root_fg_layer = NULL;
-    Tile_Layer *tl_curr;
 
     logr_log(INFO, "TileFetcher.c", "tl_get_layers", "Entered function");
 
     // Iterate map tile layers
-    for (tl_curr = map->layers; tl_curr != NULL; tl_curr = tl_curr->next) {
-        Layer_Data *ld_curr;
+    for (Tile_Layer *tl_curr = map->layers; tl_curr != NULL; tl_curr = tl_curr->next) {
         u_short curr_col = 0, tiles_cnt = 0, rows_cnt = 0, active_tiles_cnt = 0;
         SpriteLayer *sl = init_sprite_layer();
         GsSPRITE **layer_sprites = MEM_CALLOC_3_PTRS(tl_curr->active_sprites_cnt, GsSPRITE);
@@ -31,7 +29,7 @@ void tf_add_layers_to_frame(Frame *frame, FR_TileSet *tile_sets, u_char n_tilese
         logr_log(INFO, "TileFetcher.c", "tl_get_layers", "FETCHING LAYER %s, active_sprites_count=%d", tl_curr->name, tl_curr->active_sprites_cnt);
 
         // Iterate the layer data to get tileset position for each tile
-        for (ld_curr = tl_curr->data; ld_curr != NULL; ld_curr = ld_curr->next) {
+        for (Layer_Data *ld_curr = tl_curr->data; ld_curr != NULL; ld_curr = ld_curr->next) {
             u_short id = ld_curr->id;
 
             // Check if time for new row
@@ -75,15 +73,14 @@ void tf_add_layers_to_frame(Frame *frame, FR_TileSet *tile_sets, u_char n_tilese
         }
     }
 
-    // Finally give layers to frame
+    // Finally, give layers to frame
     frame->bg_layers = root_bg_layer;
     frame->fg_layers = root_fg_layer;
 }
 
 GsSPRITE *map_tile(u_short id, u_short x, u_short y, FR_TileSet *tile_sets, u_char n_tilesets, Tile_Map *map) {
-    u_char i;
     // Iterate our fr_tilesets
-    for(i = 0; i < n_tilesets; i++) {
+    for(u_char i = 0; i < n_tilesets; i++) {
         FR_TileSet *tf_tileset = &tile_sets[i];
         GsSPRITE *base = tf_tileset->sprite;
 

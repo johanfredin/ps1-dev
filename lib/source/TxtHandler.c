@@ -31,14 +31,13 @@ Font *txt_fnt_init(char *name, u_char cw, u_char ch, u_char padding) {
 Dialog *txt_dlg_init(char **strs, char *id, u_char n_messages, Font *fnt, u_short ticks_per_frame, u_char x, u_char y, u_char visible) {
     Dialog *dlg = MEM_MALLOC_3(Dialog);
     Message *msgs = MEM_CALLOC_3(n_messages, Message);
-    u_char i;
     dlg->id = id;
     dlg->x = x;
     dlg->y = y;
     dlg->ticks_per_frame = ticks_per_frame;
     dlg->n_messages = n_messages;
     dlg->visible = visible;
-    for (i = 0; i < n_messages; i++) {
+    for (u_char i = 0; i < n_messages; i++) {
         if (strs[i] == NULL) {
             logr_log(ERROR, "TxtHandler.c", "txt_dlg_init", "Message at index=%d is null, perhaps the amount of messages=%d is larger than the actual array?", i, n_messages);
             exit(1);
@@ -53,11 +52,11 @@ Dialog *txt_dlg_init(char **strs, char *id, u_char n_messages, Font *fnt, u_shor
 }
 
 void *txt_msg_init(Message *msg, Font *font, u_char x, u_char y, char *str, u_char make_static, u_char active) {
-    u_short i, x_offset = 0, y_offset = 0;
+    u_short x_offset = 0, y_offset = 0;
     u_short n_chars = strlen(str);
     GsSPRITE *fnt_sprites = MEM_CALLOC_3(n_chars, GsSPRITE);
     logr_log(TRACE, "TxtHandler.c", "txt_msg_init", "n_chars=%d", n_chars);
-    for (i = 0; i < n_chars; i++) {
+    for (u_short i = 0; i < n_chars; i++) {
         u_short j = 0, u = 0, v = 0, match = 0;
         char curr_ch = str[i];
         logr_log(TRACE, "TxtHandler.c", "txt_msg_init", "curr_ch=%c", curr_ch);
@@ -132,7 +131,6 @@ void txt_next_msg(Dialog *dlg, u_char can_skip) {
 }
 
 void txt_dlg_tick(Dialog *dlg) {
-    Message *msg;
     if ((IS_STATIC_DIALOG(dlg)) | !dlg->visible) {
         /*
          * Static dialogs do not need to get updated and
@@ -141,7 +139,7 @@ void txt_dlg_tick(Dialog *dlg) {
         return;
     }
 
-    msg = &dlg->messages[g_active_msg_idx];
+    Message *msg = &dlg->messages[g_active_msg_idx];
     if (msg->active) {
         if (TXT_MSG_CHARS_ACQUIRED(msg)) {
             // All characters rendered
@@ -157,8 +155,7 @@ void txt_dlg_tick(Dialog *dlg) {
 }
 
 u_char txt_dlg_complete(Dialog *dlg) {
-    u_char i;
-    for (i = 0; i < dlg->n_messages; i++) {
+    for (u_char i = 0; i < dlg->n_messages; i++) {
         if (TXT_MSG_CHARS_ACQUIRED(&dlg->messages[i]) == 0) {
             return 0;
         }
@@ -167,8 +164,7 @@ u_char txt_dlg_complete(Dialog *dlg) {
 }
 
 void txt_dlg_reset(Dialog *dlg) {
-    u_char i;
-    for(i = 0; i < dlg->n_messages; i++) {
+    for(u_char i = 0; i < dlg->n_messages; i++) {
         dlg->messages[i].acc_chars = 0;
         dlg->messages[i].active = i == 0;
         dlg->visible = 1;

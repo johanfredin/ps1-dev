@@ -79,22 +79,41 @@ CdrData *cdr_read_file(char *file_path) {
     return cdr_data;
 }
 
-void cdr_da_play(CdDATrack *track) {
-    if (track->is_playing) {
+void cdr_da_play(CdrDATrack *track) {
+#if DA_ENABLED
+    if (CDR_DA_CANT_PLAY(track)) {
         return;
     }
 
     int t[] = {track->track, 0};
     DsPlay(CDR_DA_MODE_REPEAT, t, 0);
     track->is_playing = 1;
+#endif
 }
 
-void cdr_da_stop(CdDATrack *track) {
-    if (!(track->is_playing)) {
+void cdr_da_stop(CdrDATrack *track) {
+#if DA_ENABLED
+    if (CDR_DA_CANT_STOP(track)) {
         return;
     }
 
-    int t[] = {0};
+    int t[] = {track->track, 0};
     track->is_playing = DsPlay(CDR_DA_STOP, t, 0);
     track->is_playing = 0;
+#endif
+}
+
+void cdr_da_swap(CdrDATrack *from, CdrDATrack *to) {
+#if DA_ENABLED
+    const u_char from_track_nr = from->track;
+    const u_char to_track_nr = to->track;
+
+    if (from_track_nr == to_track_nr) {
+        // If the track we want to swap to is the same track, do nothing
+        return;
+    }
+
+    cdr_da_stop(from);
+    cdr_da_play(to);
+#endif
 }

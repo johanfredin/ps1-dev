@@ -18,5 +18,7 @@ cmake-build-debug
 
 target/*
 
+tools/LICENSE*
+
 *.sh
 third_party/psyq/

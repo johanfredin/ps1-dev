@@ -13,6 +13,10 @@
 #define MAP_START_FRAME 0
 #define MAP_DIALOGS_IN_FRAME(dlg_cnt) dlg_cnt | 0
 
+#define TRACK_WORLD 2
+#define TRACK_INDOORS 3
+#define CDDA_TRACKS 2
+
 Frame *g_map_frames;
 FR_TileSet **g_map_tile_sets;
 CdrData **g_map_cdr_data_assets;
@@ -27,7 +31,12 @@ u_char g_assets_cnt = 0, g_map_tilesets_count = 0;
 u_char g_frame_cnt;
 u_char g_current_frame = MAP_START_FRAME;
 
-void init_frame(Frame *frame, char *json_map_file);
+CdrDATrack tracks[CDDA_TRACKS] = {
+        {TRACK_WORLD, 0},
+        {TRACK_INDOORS, 0}
+};
+
+void init_frame(Frame *frame, char *json_map_file, CdrDATrack *audio_track);
 
 void frame_init_collision_blocks(Tile_Map *tile_map, Frame *frame);
 
@@ -67,10 +76,10 @@ void map_init(u_char level, Player *player, Camera *camera) {
     TBX_INIT_VERT_GORAUD_COLOR(g_canvas_clr, 10, 10, 40, 0, 0, 200 - 40);
 
     g_map_frames = MEM_CALLOC_3(4, Frame);
-    init_frame(&g_map_frames[g_frame_cnt++], "L1_WRLD.JSON");
-    init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN1.JSON");
-    init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN2.JSON");
-    init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN3.JSON");
+    init_frame(&g_map_frames[g_frame_cnt++], "L1_WRLD.JSON", &tracks[0]);
+    init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN1.JSON", &tracks[1]);
+    init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN2.JSON", &tracks[1]);
+    init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN3.JSON", &tracks[1]);
 
     // Init controller
     g_ctrl = ctrl_init(CTRL_PLAYER_1);
@@ -82,7 +91,9 @@ void map_init(u_char level, Player *player, Camera *camera) {
     MEM_FREE_3_AND_NULL(g_map_cdr_data_assets);
     g_camera = camera;
     g_player = player;
-    printf("Map initialized\n");
+
+    // Start initial track
+    cdr_da_play(&tracks[0]);
 }
 
 void load_level_assets_from_cd(u_char level) {
@@ -126,7 +137,7 @@ void load_tilesets() {
     logr_log(DEBUG, "Map.c", "load_tilesets", "%d tilesets loaded", g_map_tilesets_count);
 }
 
-void init_frame(Frame *frame, char *json_map_file) {
+void init_frame(Frame *frame, char *json_map_file, CdrDATrack *audio_track) {
     // Declarations --------------------------
     CdrData *json_cdr_data;
     u_long *content;
@@ -172,6 +183,9 @@ void init_frame(Frame *frame, char *json_map_file) {
     frame_init_collision_blocks(tile_map, frame);
     frame_init_teleports(tile_map, frame);
     frame_init_dialogs(tile_map, frame);
+
+    // Set frame audio track
+    frame->audio_track = audio_track;
 
     // Housekeeping
     jsonp_free(json_map_data);
@@ -418,6 +432,12 @@ void handle_teleport_collision(GameObject *gobj, Frame *frame) {
             }
             g_camera->map_w = g_map_frames[g_current_frame].width;
             g_camera->map_h = g_map_frames[g_current_frame].height;
+
+            // Swap audio track
+            CdrDATrack *current_track = frame->audio_track;
+            CdrDATrack *next_track = g_map_frames[t.dest_frame].audio_track;
+            cdr_da_swap(current_track, next_track);
+
             if (g_camera->map_w <= g_camera->viewport_w) {
                 g_camera->map_w = gpub_screen_w;
                 g_camera->viewport_w = gpub_screen_w;

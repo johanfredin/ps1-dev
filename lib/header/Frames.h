@@ -55,6 +55,7 @@ typedef struct Frame {
     FR_Dialog *dialogs;
     GameObject *game_object;
     FR_TileSet *fr_tilesets;
+    CdrDATrack *audio_track;
 } Frame;
 
 FR_TileSet *frames_malloc_fr_tileset();

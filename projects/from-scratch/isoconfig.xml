@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <iso_project image_name="../../target/from-scratch.bin" cue_sheet="../../target/from-scratch.cue" no_xa="1">
 	<track type="data">
-		<license file="../../tools/LICENSEE.DAT"/>
+		<license file="../../tools/LICENSEA.DAT"/>
 		<directory_tree>
 			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
 			<file name="MAIN.EXE"		type="data"	source="from-scratch.ps-exe"/>
@@ -37,6 +37,12 @@
 
 			<!-- Add your own files or folders here -->
 			<dummy sectors="1024"/>
+
+			<!-- CDDA tracks references -->
+			<file name="town.da" trackid="2" type="da"/>
+			<file name="inside.da" trackid="3" type="da"/>
 		</directory_tree>
 	</track>
+	<track type="audio" trackid="2" source="../../assets/music/town.mp3"/>
+	<track type="audio" trackid="3" source="../../assets/music/indoors.mp3"/>
 </iso_project>

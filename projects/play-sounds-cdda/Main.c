@@ -23,11 +23,11 @@ Color snd_bg_color = {120, 50, 100};
 #pragma ide diagnostic ignored "EndlessLoop"
 
 int main() {
-    CdDATrack tracks[2] = {
+    CdrDATrack tracks[2] = {
             {2, 0},
             {3, 0}
     };
-    CdDATrack current = tracks[0];
+    CdrDATrack current = tracks[0];
     Controller controller;
     MEM_INIT_HEAP_3();
     CDR_INIT();

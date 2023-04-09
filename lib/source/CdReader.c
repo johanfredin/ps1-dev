@@ -14,8 +14,7 @@ CdrData *cdr_create_data_entry(char *name) {
 }
 
 CdrData *cdr_find_data_entry(char* name, CdrData **assets, u_char assets_cnt) {
-    u_char i;
-    for(i = 0; i < assets_cnt; i++) {
+    for(u_char i = 0; i < assets_cnt; i++) {
         if(STR_EQ(assets[i]->name, name)) {
             logr_log(TRACE, "CdReader.c", "cdr_find_data_entry", "Name=%s, found at index=%d", assets[i]->name, i);
             return assets[i];
@@ -26,15 +25,8 @@ CdrData *cdr_find_data_entry(char* name, CdrData **assets, u_char assets_cnt) {
 }
 
 CdrData *cdr_read_file(char *file_path) {
-    CdrData *cdr_data;
-    DslFILE temp_file_info;
-    DslFILE *res;
-
     char file_path_raw[16];
-    u_long sectors_size;
-    u_long sectors_needed;
-
-    cdr_data = cdr_create_data_entry(file_path);
+    CdrData *cdr_data = cdr_create_data_entry(file_path);
 
     // Get raw file path
     strcpy(file_path_raw, "\\");
@@ -43,7 +35,8 @@ CdrData *cdr_read_file(char *file_path) {
     logr_log(DEBUG, "CdReader.c", "cdr_read_file", "Loading file from CD: %s", file_path_raw);
 
     // Search for file on disc
-    res = DsSearchFile(&temp_file_info, file_path_raw);
+    DslFILE temp_file_info;
+    const DslFILE *res = DsSearchFile(&temp_file_info, file_path_raw);
     if (res == CDR_FILE_NOT_FOUND) {
         logr_log(ERROR, "CdReader.c", "cdr_read_file", "File=%s not found, terminating...", cdr_data->name);
         exit(1);
@@ -57,8 +50,8 @@ CdrData *cdr_read_file(char *file_path) {
     if (temp_file_info.size > 0) {
         logr_log(TRACE, "CdReader.c", "cdr_read_file", "file found");
         logr_log(TRACE, "CdReader.c", "cdr_read_file", "file size: %lu", temp_file_info.size);
-        sectors_size = temp_file_info.size + (CDR_SECTOR % temp_file_info.size);
-        sectors_needed = (sectors_size + CDR_SECTOR - 1) / CDR_SECTOR;
+        const u_long sectors_size = temp_file_info.size + (CDR_SECTOR % temp_file_info.size);
+        const u_long sectors_needed = (sectors_size + CDR_SECTOR - 1) / CDR_SECTOR;
         logr_log(TRACE, "CdReader.c", "cdr_read_file", "file buffer size needed: %d", sectors_size);
         logr_log(TRACE, "CdReader.c", "cdr_read_file", "sectors needed: %d", sectors_needed);
         cdr_data->file = MEM_MALLOC_3_CUS_SIZE(u_long, sectors_size + CDR_SECTOR);

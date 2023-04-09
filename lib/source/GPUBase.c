@@ -15,12 +15,12 @@ u_short w, h;
 u_char gpub_fps;
 
 void gpub_init_screen(u_char region_mode, u_char fps) {
-    RECT rect;
     SetVideoMode(region_mode);
     SetDispMask(1);  // 1=MASK on
     ResetGraph(0);   // Initialise drawing engine, 0=Complete reset
 
     // Clear VRAM
+    RECT rect;
     setRECT(&rect, 0, 0, GPUB_FRAME_BUFFER_WIDTH, GPUB_FRAME_BUFFER_HEIGHT);
     ClearImage2(&rect, bg_color.r, bg_color.g, bg_color.b);         // Clear Frame Buffer at high speed (interlaced mode)
     DrawSync(0);                                                           // Waits for ClearImage2 function to finish

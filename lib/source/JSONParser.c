@@ -7,7 +7,7 @@
 #include "../header/MemUtils.h"
 #include "../header/Logger.h"
 
-unsigned int idx;
+unsigned int g_index;
 char *content = NULL;
 
 void get_value(JSON_Data *);
@@ -32,7 +32,7 @@ JSON_Data *jsonp_parse(char *file_content) {
     int content_length = 0;
 
     // Set idx to 0 in this function so that it resets in case we need to parse several json files
-    idx = 0;
+    g_index = 0;
 
     SET_STR_LEN(content_length, file_content);
 
@@ -40,7 +40,7 @@ JSON_Data *jsonp_parse(char *file_content) {
     root = malloc_json_entry();
     curr = root;
     ff_to_start();
-    while (idx < content_length) {
+    while (g_index < content_length) {
         u_int next_idx;
         char next_char;
         skip_irrelevant_chars();
@@ -51,7 +51,7 @@ JSON_Data *jsonp_parse(char *file_content) {
         skip_irrelevant_chars();
 
         // Go to next if we have not reached the end yet
-        next_idx = idx + 1;
+        next_idx = g_index + 1;
         next_char = content[next_idx];
         if (next_idx >= content_length || next_char == '\0' || (next_char == '}' && content[++next_idx] == '\0')) {
             break;
@@ -59,7 +59,7 @@ JSON_Data *jsonp_parse(char *file_content) {
         curr->next = malloc_json_entry();
         curr = curr->next;
         skip_irrelevant_chars();
-        idx++;
+        g_index++;
     }
 
     return root;
@@ -73,10 +73,9 @@ void jsonp_print_data(JSON_Data *root) {
 
 void jsonp_free(JSON_Data *root) {
     JSON_Data *curr = root;
-    u_char is_nested;
     while (curr != NULL) {
         JSON_Data *aux;
-        is_nested = curr->type.arr | curr->type.obj;
+        u_char is_nested = curr->type.arr | curr->type.obj;
         if (is_nested) {
             jsonp_free((JSON_Data *)curr->value);
         }
@@ -92,16 +91,17 @@ void jsonp_free(JSON_Data *root) {
     }
 }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-no-recursion"
 void print_recursive(JSON_Data *root, int indents) {
-    int i;
-    JSON_Data *curr;
     char padding[32];
+    int i;
     for (i = 0; i < indents; i++) {
         padding[i] = ' ';
     }
     padding[i] = '\0'; // Add null terminator
 
-    for (curr = root; curr != NULL; curr = curr->next) {
+    for (JSON_Data *curr = root; curr != NULL; curr = curr->next) {
         char *comma = curr->next == NULL ? "" : ",";
         printf("%s", padding);
         if (curr->key != NULL) {
@@ -127,17 +127,20 @@ void print_recursive(JSON_Data *root, int indents) {
         }
     }
 }
+#pragma clang diagnostic pop
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-no-recursion"
 void get_value(JSON_Data *entry) {
     char c = curr_ch();
     if (c == '\"') {
         get_str(entry, 'v');
     } else if (c == '[') {
-        idx++;
+        g_index++;
         skip_irrelevant_chars();
         get_array(entry);
     } else if (c == '{') {
-        idx++;
+        g_index++;
         skip_irrelevant_chars();
         get_object(entry);
     } else if (is_num()) {
@@ -145,18 +148,19 @@ void get_value(JSON_Data *entry) {
     } else if (c == 't' || c == 'f') {
         get_bool(entry);
     } else {
-        idx++;
+        g_index++;
         skip_irrelevant_chars();
         get_value(entry);
     }
 }
+#pragma clang diagnostic pop
 
 void get_str(JSON_Data *entry, u_char type) {
-    char *str = NULL;
     if (curr_ch() == '\"') {
         next_ch();
     }
-    str = read_until('\"', 0);
+
+    char *str = read_until('\"', 0);
     if (type == 'k') {
         entry->key = str;
     } else if (type == 'v') {
@@ -170,11 +174,10 @@ void get_str(JSON_Data *entry, u_char type) {
 
 void get_number(JSON_Data *entry) {
     char *num_str = get_numeric_str();
-    int *i_ptr;
     if (strchr(num_str, '.')) {
         logr_log(TRACE, "JSONParser.c", "get_number", "Floating point not implemented for ps1 and will not be parsed, key=%s", entry->key);
     } else {
-        i_ptr = MEM_MALLOC_3(int);
+        int *i_ptr = MEM_MALLOC_3(int);
         *i_ptr = (int) strtol(num_str, NULL, 10);
         entry->value = i_ptr;
         entry->type.integer = 1;
@@ -193,10 +196,10 @@ void get_bool(JSON_Data *entry) {
 }
 
 void get_array(JSON_Data *entry) {
-    char c = curr_ch();
     JSON_Data *root = malloc_json_entry();
     JSON_Data *curr = root;
     entry->type.arr = 1;
+    char c = curr_ch();
     while (c != ']') {
         JSON_Data *next = NULL;
         skip_irrelevant_chars();
@@ -215,11 +218,13 @@ void get_array(JSON_Data *entry) {
     next_ch(); // So that we iterate past the last ] char
 }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-no-recursion"
 void get_object(JSON_Data *entry) {
-    char c = curr_ch();
     JSON_Data *root = malloc_json_entry();
     JSON_Data *curr = root;
     entry->type.obj = 1;
+    char c = curr_ch();
     while (c != '}') {
         JSON_Data *next = NULL;
         skip_irrelevant_chars();
@@ -239,6 +244,7 @@ void get_object(JSON_Data *entry) {
     entry->value = root;
     next_ch(); // So that we iterate past the last } char
 }
+#pragma clang diagnostic pop
 
 JSON_Data *malloc_json_entry() {
     Type zeroType = {0, 0, 0, 0, 0, 0};
@@ -299,9 +305,8 @@ char *get_numeric_str() {
 
 u_char is_num() {
     char c = curr_ch();
-    u_char i;
     char numbers[] = "0123456789.\0";
-    for (i = 0; numbers[i] != '\0'; i++) {
+    for (u_char i = 0; numbers[i] != '\0'; i++) {
         if (numbers[i] == c) {
             return 1;
         }
@@ -310,8 +315,8 @@ u_char is_num() {
 }
 
 void ff_to_start() {
-    while (content[idx] != '\0') {
-        if (content[idx++] == '{') {
+    while (content[g_index] != '\0') {
+        if (content[g_index++] == '{') {
             return;
         }
     }
@@ -326,12 +331,12 @@ char skip_irrelevant_chars() {
 }
 
 char curr_ch() {
-    return content[idx];
+    return content[g_index];
 }
 
 char next_ch() {
     if (curr_ch() == '\0') {
         return curr_ch();
     }
-    return content[++idx];
+    return content[++g_index];
 }

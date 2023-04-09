@@ -24,8 +24,8 @@ void asmg_load_tim_data(GsIMAGE *tim_data, CdrData *cdr_data) {
     GsGetTimInfo(cdr_data->file + 1, tim_data);    // + 1 unsigned long to skip header (4 bytes)
     rect.x = tim_data->px;
     rect.y = tim_data->py;
-    rect.w = (short) tim_data->pw;
-    rect.h = (short) tim_data->ph;
+    rect.w = tim_data->pw;
+    rect.h = tim_data->ph;
     LoadImage(&rect, tim_data->pixel);
     LOGR_LOG_FRAME_BUFFER(INFO, &rect);
 
@@ -33,8 +33,8 @@ void asmg_load_tim_data(GsIMAGE *tim_data, CdrData *cdr_data) {
     if (ASMG_HAS_CLUT(tim_data)) {
         rect.x = tim_data->cx;
         rect.y = tim_data->cy;
-        rect.w = (short) tim_data->cw;
-        rect.h = (short) tim_data->ch;
+        rect.w = tim_data->cw;
+        rect.h = tim_data->ch;
         LoadImage(&rect, tim_data->clut);
         LOGR_LOG_CLUT(INFO, &rect);
     }
@@ -42,13 +42,12 @@ void asmg_load_tim_data(GsIMAGE *tim_data, CdrData *cdr_data) {
 
 void asmg_load_sprite(GsSPRITE *sprite, CdrData *data, u_short x, u_short y, BitDepthMul multiplier) {
     GsIMAGE tim_data;
-    u_short	vrx;
     asmg_load_tim_data(&tim_data, data);
 
-    vrx = (tim_data.px + ImageToVRamSize(0, tim_data.pmode)) & 0x3C0;
+    u_short vrx = (tim_data.px + ImageToVRamSize(0, tim_data.pmode)) & 0x3C0;
 
-    sprite->x = (short) x;
-    sprite->y = (short) y;
+    sprite->x = x;
+    sprite->y = y;
     sprite->attribute = ASMG_SPRITE_ATTR_CLUT(&tim_data);
     sprite->w = tim_data.pw << multiplier;
     sprite->h = tim_data.ph;
@@ -71,8 +70,8 @@ void asmg_load_16_bit_sprite(GsSPRITE *sprite, CdrData *data, u_short x, u_short
     asmg_load_tim_data(&tim_data, data);
 
     sprite->attribute = ASMG_SPRITE_ATTR_16_BIT;
-    sprite->x = (short) x;
-    sprite->y = (short) y;
+    sprite->x = x;
+    sprite->y = y;
     sprite->w = tim_data.pw;
     sprite->h = tim_data.ph;
     sprite->tpage = GetTPage((int) tim_data.pmode, 0, tim_data.px, tim_data.py);
@@ -88,8 +87,8 @@ void asmg_load_16_bit_sprite(GsSPRITE *sprite, CdrData *data, u_short x, u_short
 
 void asmg_load_sprite_region(GsSPRITE *base, GsSPRITE *region, u_short x, u_short y, u_short u, u_short v, u_short w, u_short h) {
     region->attribute = base->attribute;
-    region->x = (short) x;
-    region->y = (short) y;
+    region->x = x;
+    region->y = y;
     region->w = w;
     region->h = h;
     region->tpage = base->tpage;
@@ -118,7 +117,6 @@ void asmg_audio_init() {
 }
 
 void asmg_transfer_vag_to_spu(CdrData *cdr_data, u_long voice_channel) {
-    u_char *vag_file;
     SpuSetTransferMode(SpuTransByDMA);                                   // set transfer mode to DMA
     vag_spu_addr = SpuMalloc((long)(cdr_data->sectors) * CDR_SECTOR);     // allocate SPU memory for sound
     if(vag_spu_addr == -1) {
@@ -127,7 +125,7 @@ void asmg_transfer_vag_to_spu(CdrData *cdr_data, u_long voice_channel) {
     }
 
     SpuSetTransferStartAddr(vag_spu_addr);                           // set transfer starting address to malloced area
-    vag_file = (u_char *) cdr_data->file;
+    u_char *vag_file = (u_char *) cdr_data->file;
     ASMG_AUDIO_SKIP_VAG_HEADER(vag_file);
     SpuWrite(vag_file, cdr_data->sectors * CDR_SECTOR);         // perform actual transfer
     SpuIsTransferCompleted(SPU_TRANSFER_WAIT);                       // wait for dma to complete

@@ -6,7 +6,7 @@
 #include <malloc.h>
 
 Controller *ctrl_init(int id) {
-  Controller *ctrl = (Controller *)malloc3(sizeof(Controller));
+  Controller *ctrl = MEM_MALLOC_3(Controller);
   ctrl->id = id;
   ctrl->curr_btn = 0;
   return ctrl;

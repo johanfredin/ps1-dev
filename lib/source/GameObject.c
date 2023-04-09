@@ -25,8 +25,8 @@ GameObject *gobj_init(GsSPRITE *sprite, short w, short h, short x_speed, short y
     gobj->bounds = MEM_MALLOC_3(RECT);
     gobj->bounds->x = gobj->sprite->x;
     gobj->bounds->y = gobj->sprite->y;
-    gobj->bounds->w = (short) gobj->sprite->w;
-    gobj->bounds->h = (short) gobj->sprite->h;
+    gobj->bounds->w = gobj->sprite->w;
+    gobj->bounds->h = gobj->sprite->h;
     LOGR_LOG_GOBJ(DEBUG, gobj);
     return gobj;
 }
@@ -36,8 +36,8 @@ void gobj_draw(GameObject *game_object) {
 }
 
 void gobj_tick(GameObject *game_object) {
-    game_object->sprite->x = (short) (game_object->sprite->x + game_object->x_speed);
-    game_object->sprite->y = (short) (game_object->sprite->y + game_object->y_speed);
+    game_object->sprite->x = (game_object->sprite->x + game_object->x_speed);
+    game_object->sprite->y = (game_object->sprite->y + game_object->y_speed);
 }
 
 Player *gobj_player_init(Animation *anim, GameObject *gobj, u_char p_num) {
@@ -157,7 +157,6 @@ void gobj_camera_init(Camera *cam, GameObject *obj_in_focus) {
 }
 
 void gobj_camera_tick(Camera *cam) {
-    short x, y;
     u_short obj_x = cam->obj_in_focus->bounds->x + (cam->obj_in_focus->bounds->w >> 1);
     u_short obj_y = cam->obj_in_focus->bounds->y + (cam->obj_in_focus->bounds->h >> 1);
 
@@ -167,8 +166,8 @@ void gobj_camera_tick(Camera *cam) {
     }
 
     // Set game object in the middle of the viewport
-    x = (short) (obj_x - (cam->viewport_w >> 1));
-    y = (short) (obj_y - (cam->viewport_h >> 1));
+    short x = (obj_x - (cam->viewport_w >> 1));
+    short y = (obj_y - (cam->viewport_h >> 1));
 
     // Handle clamping
     if (x < 0) {
@@ -178,10 +177,10 @@ void gobj_camera_tick(Camera *cam) {
         y = 0;
     }
     if (x + cam->viewport_w > cam->map_w) {
-        x = (short) (cam->map_w - cam->viewport_w);
+        x = (cam->map_w - cam->viewport_w);
     }
     if (y + cam->viewport_h > cam->map_h) {
-        y = (short) (cam->map_h - cam->viewport_h);
+        y = (cam->map_h - cam->viewport_h);
     }
     cam->x = x;
     cam->y = y;

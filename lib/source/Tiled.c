@@ -15,14 +15,12 @@ Tile_Map *malloc_tile_map();
 
 
 Tile_Map *tiled_populate_from_json(JSON_Data *root) {
-    JSON_Data *curr;
-    Tile_Map *tm;
     if (root == NULL) {
         logr_log(ERROR, "Tiled.c", "tiled_populate_from_json", "root is NULL");
         exit(1);
     }
-    tm = malloc_tile_map();
-    for (curr = root; curr != NULL; curr = curr->next) {
+    Tile_Map *tm = malloc_tile_map();
+    for (JSON_Data *curr = root; curr != NULL; curr = curr->next) {
         char *key = curr->key;
         void *value = curr->value;
         if (STR_EQ(key, "height")) {
@@ -71,8 +69,6 @@ void tiled_free(Tile_Map *tm) {
 }
 
 void tiled_print_map(u_char level, Tile_Map *map) {
-    Tile_Layer *tile_layer;
-    Tile_Set *tile_set;
     ObjectLayer_Bounds *bounds_layer;
     ObjectLayer_Teleport *teleports_layer;
     ObjectLayer_Dialog *dialog_layer;
@@ -89,7 +85,7 @@ void tiled_print_map(u_char level, Tile_Map *map) {
     logr_log(level, "Tiled.c", "tiled_print_map", "  layers_cnt=%d ", map->layers_cnt);
 
     logr_log(level, "Tiled.c", "tiled_print_map", "  layers=[ ");
-    for (tile_layer = map->layers; tile_layer != NULL; tile_layer = tile_layer->next) {
+    for (Tile_Layer *tile_layer = map->layers; tile_layer != NULL; tile_layer = tile_layer->next) {
         logr_log(level, "Tiled.c", "tiled_print_map", "    { ");
         logr_log(level, "Tiled.c", "tiled_print_map", "      name=%s ", tile_layer->name);
         logr_log(level, "Tiled.c", "tiled_print_map", "      type=%s ", tile_layer->type);
@@ -149,7 +145,7 @@ void tiled_print_map(u_char level, Tile_Map *map) {
     }
     logr_log(level, "Tiled.c", "tiled_print_map", "  ] ");
     logr_log(level, "Tiled.c", "tiled_print_map", "  tile_sets=[ ");
-    for (tile_set = map->tile_sets; tile_set != NULL; tile_set = tile_set->next) {
+    for (Tile_Set *tile_set = map->tile_sets; tile_set != NULL; tile_set = tile_set->next) {
         logr_log(level, "Tiled.c", "tiled_print_map", "    { ");
         logr_log(level, "Tiled.c", "tiled_print_map", "       firstgid: %d", tile_set->firstgid);
         logr_log(level, "Tiled.c", "tiled_print_map", "       source: %s", tile_set->source);
@@ -236,15 +232,12 @@ void add_tile_layers_to_map(Tile_Map *tm, JSON_Data *jobj_root) {
 
 void add_object_layers_to_map(Tile_Map *tm, JSON_Data *root) {
     u_char objects_cnt;
-    ObjectLayer_Bounds *ol_root, *ol_curr; // Our object sprite_layers linked list
     JSON_Data *curr_obj_layer; // Our current json object being iterated
-    ol_root = MEM_MALLOC_3(ObjectLayer_Bounds);
-    ol_curr = ol_root;
-    for (curr_obj_layer = root, objects_cnt = 0;
-         curr_obj_layer != NULL; curr_obj_layer = curr_obj_layer->next, objects_cnt++) {    // Iterate objects
+    ObjectLayer_Bounds *ol_root = MEM_MALLOC_3(ObjectLayer_Bounds);
+    ObjectLayer_Bounds *ol_curr = ol_root;
+    for (curr_obj_layer = root, objects_cnt = 0; curr_obj_layer != NULL; curr_obj_layer = curr_obj_layer->next, objects_cnt++) {    // Iterate objects
         JSON_Data *entry_root = (JSON_Data *) curr_obj_layer->value;
-        JSON_Data *entry_curr;
-        for (entry_curr = entry_root; entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
+        for (JSON_Data *entry_curr = entry_root; entry_curr != NULL; entry_curr = entry_curr->next) { // Iterate object properties
             char *key = entry_curr->key;
             void *value = entry_curr->value;
 

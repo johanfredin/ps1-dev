@@ -1,6 +1,3 @@
-//
-// Created on 1/1/2022.
-//
 #include "../header/GPUBase.h"
 #include "../header/TextBox.h"
 #include "../header/MemUtils.h"
@@ -32,13 +29,12 @@ void add_border_to_box(DlgBox *box, u_char idx, Color *color) {
 }
 
 void tbx_draw(DlgBox *box) {
-    u_short i;
     if (box->complete || !box->started) {
         return;
     }
 
     GPUB_GS_SORT_POLY(&box->canvas);
-    for (i = 0; i < 8; i++) {
+    for (u_short i = 0; i < 8; i++) {
         GPUB_GS_SORT_POLY(&box->border[i]);
     }
 

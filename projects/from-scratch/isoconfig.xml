@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<iso_project image_name="../../target/from-scratch.iso" cue_sheet="from-scratch.cue" no_xa="1">
+<iso_project image_name="../../target/from-scratch.bin" cue_sheet="../../target/from-scratch.cue" no_xa="1">
 	<track type="data">
 		<license file="../../tools/LICENSEE.DAT"/>
 		<directory_tree>

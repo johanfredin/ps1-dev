@@ -175,8 +175,7 @@ void get_number(JSON_Data *entry) {
         logr_log(TRACE, "JSONParser.c", "get_number", "Floating point not implemented for ps1 and will not be parsed, key=%s", entry->key);
     } else {
         i_ptr = MEM_MALLOC_3(int);
-        //TODO: FIx
-//        *i_ptr = (int) strtol(num_str, NULL, 10);
+        *i_ptr = (int) strtol(num_str, NULL, 10);
         entry->value = i_ptr;
         entry->type.integer = 1;
     }

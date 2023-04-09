@@ -1,8 +1,6 @@
 #ifndef PSX_MEM_UTILS_H
 #define PSX_MEM_UTILS_H
 
-#include <malloc.h>
-
 #define MEM_HEAP_START_ADDR 0x800F8000
 #define MEM_HEAP_SIZE 0x00100000            // 1 mb heap
 

@@ -76,17 +76,17 @@ void tiled_print_map(u_char level, Tile_Map *map) {
     ObjectLayer_Bounds *bounds_layer;
     ObjectLayer_Teleport *teleports_layer;
     ObjectLayer_Dialog *dialog_layer;
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "Map parsed from JSON");
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "-------------------- ");
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "{ ");
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  bounds_cnt=%d", map->bounds_cnt);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  teleports_cnt=%d", map->teleports_cnt);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  tilesets_cnt=%d", map->tilesets_cnt);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  width=%d ", map->width);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  height=%d ", map->height);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  tile_width=%d ", map->tile_width);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  tile_height=%d ", map->tile_height);
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "  layers_cnt=%d ", map->layers_cnt);
+    logr_log(level, "Tiled.c", "tiled_print_map", "Map parsed from JSON");
+    logr_log(level, "Tiled.c", "tiled_print_map", "-------------------- ");
+    logr_log(level, "Tiled.c", "tiled_print_map", "{ ");
+    logr_log(level, "Tiled.c", "tiled_print_map", "  bounds_cnt=%d", map->bounds_cnt);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  teleports_cnt=%d", map->teleports_cnt);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  tilesets_cnt=%d", map->tilesets_cnt);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  width=%d ", map->width);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  height=%d ", map->height);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  tile_width=%d ", map->tile_width);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  tile_height=%d ", map->tile_height);
+    logr_log(level, "Tiled.c", "tiled_print_map", "  layers_cnt=%d ", map->layers_cnt);
 
     logr_log(level, "Tiled.c", "tiled_print_map", "  layers=[ ");
     for (tile_layer = map->layers; tile_layer != NULL; tile_layer = tile_layer->next) {
@@ -142,7 +142,7 @@ void tiled_print_map(u_char level, Tile_Map *map) {
         logr_log(level, "Tiled.c", "tiled_print_map", "      y=%d ", dialog_layer->y);
         logr_log(level, "Tiled.c", "tiled_print_map", "      width=%d ", dialog_layer->width);
         logr_log(level, "Tiled.c", "tiled_print_map", "      height=%d ", dialog_layer->height);
-        logr_log(level, "Tiled.c", "tiled_print_map", "      dest_frame=%s ", dialog_layer->text);
+        logr_log(level, "Tiled.c", "tiled_print_map", "      text=%s ", dialog_layer->text);
         logr_log(level, "Tiled.c", "tiled_print_map", "      max_chars=%d ", dialog_layer->max_chars);
         logr_log(level, "Tiled.c", "tiled_print_map", "      n_lines=%d ", dialog_layer->n_lines);
         logr_log(level, "Tiled.c", "tiled_print_map", "    } ");
@@ -157,7 +157,7 @@ void tiled_print_map(u_char level, Tile_Map *map) {
     }
     logr_log(level, "Tiled.c", "tiled_print_map", "  ] ");
 
-    logr_log(INFO, "Tiled.c", "tiled_print_map", "} ");
+    logr_log(level, "Tiled.c", "tiled_print_map", "} ");
 }
 
 void add_tile_layers_to_map(Tile_Map *tm, JSON_Data *jobj_root) {

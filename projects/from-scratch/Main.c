@@ -38,9 +38,10 @@ int main() {
     CDR_INIT();
     sfx_load();
     init_players(NUM_PLAYERS);
+    gobj_camera_init(&camera, player->gobj);
     map_init(1, player, &camera);
     CDR_CLOSE();
-    gobj_camera_init(&camera, player->gobj);
+
 
     ASMG_AUDIO_PLAY(SFX_HPUP);
 

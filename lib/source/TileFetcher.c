@@ -14,7 +14,7 @@ void tf_add_layers_to_frame(Frame *frame, FR_TileSet *tile_sets, u_char n_tilese
     SpriteLayer *root_fg_layer = NULL;
     Tile_Layer *tl_curr;
 
-    logr_log(TRACE, "TileFetcher.c", "tl_get_layers", "Entered function");
+    logr_log(INFO, "TileFetcher.c", "tl_get_layers", "Entered function");
 
     // Iterate map tile layers
     for (tl_curr = map->layers; tl_curr != NULL; tl_curr = tl_curr->next) {
@@ -28,7 +28,7 @@ void tf_add_layers_to_frame(Frame *frame, FR_TileSet *tile_sets, u_char n_tilese
             exit(1);
         }
 
-        logr_log(DEBUG, "TileFetcher.c", "tl_get_layers", "FETCHING LAYER %s", tl_curr->name);
+        logr_log(INFO, "TileFetcher.c", "tl_get_layers", "FETCHING LAYER %s, active_sprites_count=%d", tl_curr->name, tl_curr->active_sprites_cnt);
 
         // Iterate the layer data to get tileset position for each tile
         for (ld_curr = tl_curr->data; ld_curr != NULL; ld_curr = ld_curr->next) {

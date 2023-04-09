@@ -13,7 +13,7 @@
 
 /**
  * Log a message at specified level
- * @param level log level (0=err, 1=warn, 2=info, 3=debug, 4=trace)
+ * @param level log level (0=off, 1=error, 2=warn, 3=info, 4=debug, 5=trace)
  * @param src_file the name of the C source/header file that called the log function (will be included in log message)
  * @param src_func the name of the function that called the log function (will be included in log message)
  * @param msg the message to print

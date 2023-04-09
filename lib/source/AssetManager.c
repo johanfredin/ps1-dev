@@ -121,7 +121,7 @@ void asmg_transfer_vag_to_spu(CdrData *cdr_data, u_long voice_channel) {
     u_char *vag_file;
     SpuSetTransferMode(SpuTransByDMA);                                   // set transfer mode to DMA
     vag_spu_addr = SpuMalloc((long)(cdr_data->sectors) * CDR_SECTOR);     // allocate SPU memory for sound
-    if(vag_spu_addr & -1) {
+    if(vag_spu_addr == -1) {
         logr_log(ERROR, "AssetManager.c", "asmg_transfer_vag_to_spu", "Could not allocate audio file %s, shutting down", cdr_data->name);
         exit(1);
     }

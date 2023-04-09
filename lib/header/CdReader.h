@@ -22,7 +22,7 @@ typedef struct CdrData {
 
 typedef struct CdDATrack {
     u_char track: 7;
-    u_char is_playing: 1
+    u_char is_playing: 1;
 } CdDATrack;
 
 #define CDR_INIT()                                                                                   \

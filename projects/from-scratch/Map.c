@@ -6,6 +6,7 @@
 #include "../../lib/header/StrUtils.h"
 #include "../../lib/header/Logger.h"
 #include "../../lib/header/CollisionHandler.h"
+#include <stdio.h>
 
 #include <libetc.h>
 
@@ -81,6 +82,7 @@ void map_init(u_char level, Player *player, Camera *camera) {
     MEM_FREE_3_AND_NULL(g_map_cdr_data_assets);
     g_camera = camera;
     g_player = player;
+    printf("Map initialized\n");
 }
 
 void load_level_assets_from_cd(u_char level) {

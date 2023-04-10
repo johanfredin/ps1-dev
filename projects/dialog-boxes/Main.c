@@ -20,18 +20,17 @@ void init_ots() {
 }
 
 void init_dialogs() {
-    char *animated_messages[2];
     VerticalGoraudColor canvas_color, fixed_color;
-    Dialog *dlg;
-
     Font *fnt = txt_fnt_init("FONT.TIM", 8, 8, 2);
     TBX_INIT_VERT_GORAUD_COLOR(&canvas_color, 10, 10, 40, 0, 0, 200 - 40);
     TBX_INIT_VERT_GORAUD_COLOR(&fixed_color, 50, 50, 10, 100, 100, 200);
 
-    animated_messages[0] = "Animated Message works!";
-    animated_messages[1] = "Johan is cool";
+    char *animated_messages[2] = {
+            "Animated Message works!",
+            "Johan is cool"
+    };
 
-    dlg = txt_dlg_init(animated_messages, "yolo", 2, fnt, 5, 30, 70, 1);
+    Dialog *dlg = txt_dlg_init(animated_messages, "yolo", 2, fnt, 5, 30, 70, 1);
     dlg_box_fixed = tbx_init_dlg_box(20, 60, 260, 0, 260, 130, &canvas_color, dlg);
 }
 

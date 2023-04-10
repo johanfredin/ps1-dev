@@ -20,31 +20,21 @@ const u_short gpub_screen_h = 240;
 
 Player *player;
 Controller g_ctrl;
-GsBOXF bounds[NUM_BOUNDS]; // Use GsBOXF so we can render them simply
-RECT r_bounds[NUM_BOUNDS];
-
-void init_bounds() {
-    GsBOXF r1 = {1, 100, 100, 50, 50, 255, 0, 0};
-    GsBOXF r2 = {1,175, 100, 100, 1, 155, 10, 0};
-    GsBOXF r3 = {1,200, 50, 1, 60, 215, 0, 10};
-    GsBOXF r4 = {1, 200, 220, 1, 1, 195, 0, 50};
-    RECT rect_1 = {100, 100, 50, 50};
-    RECT rect_2 = {175, 100, 100, 1};
-    RECT rect_3 = {200, 50, 1, 60};
-    RECT rect_4 = {200, 220, 1, 1};
-    bounds[0] = r1;
-    bounds[1] = r2;
-    bounds[2] = r3;
-    bounds[3] = r4;
-    r_bounds[0] = rect_1;
-    r_bounds[1] = rect_2;
-    r_bounds[2] = rect_3;
-    r_bounds[3] = rect_4;
-}
+GsBOXF bounds[NUM_BOUNDS] = { // Use GsBOXF so we can render them simply
+        {1, 100, 100, 50,  50, 255, 0,   0},
+        {1, 175, 100, 100, 1,  155, 10,  0},
+        {1, 200, 50,  1,   60, 215, 0,   10},
+        {1, 200, 220, 1,   1,  195, 0,   50}
+};
+RECT r_bounds[NUM_BOUNDS] = {
+        {100, 100, 50,  50},
+        {175, 100, 100, 1},
+        {200, 50,  1,   60},
+        {200, 220, 1,   1}
+};
 
 void draw_bounds() {
-    u_char i;
-    for (i = 0; i < NUM_BOUNDS; i++) {
+    for (u_char i = 0; i < NUM_BOUNDS; i++) {
         GPUB_GS_SORT_BOX_FILL(&bounds[i]);
     }
 }
@@ -103,8 +93,6 @@ int main() {
     CDR_CLOSE();
 
     CTRL_INIT_P1(&g_ctrl);
-    init_bounds();
-
     while (1) {
         update();
         draw();

@@ -47,6 +47,7 @@ add_executable(
         projects/from-scratch/Map.c
         projects/use-tilemaps/Main.c
         projects/use-tilemaps/Map.c
+        projects/draw-primes-in-ot/Main.c
         projects/play-sounds-cdda/Main.c
         projects/play-sounds-libsnd/Main.c
         projects/play-sounds-spu/Main.c

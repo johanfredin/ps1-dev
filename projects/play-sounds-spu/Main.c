@@ -19,16 +19,6 @@ const u_short gpub_screen_h = 240;
 
 CdrData **vags;
 
-CdrData *vag1, *vag2;
-
-void init_separate() {
-    vag1 = cdr_read_file("STEP.VAG");
-    vag2 = cdr_read_file("HPUP.VAG");
-    asmg_audio_init();
-    asmg_transfer_vag_to_spu(vag1, SFX_WALK);
-    asmg_transfer_vag_to_spu(vag2, SPU_1CH);
-}
-
 void init_ptrs() {
     vags = MEM_CALLOC_3_PTRS(2, CdrData);
     vags[0] = cdr_read_file("STEP.VAG");

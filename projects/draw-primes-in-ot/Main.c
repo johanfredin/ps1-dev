@@ -121,6 +121,7 @@ int main() {
     Color bg_color = {25, 0, 50};
     gpub_init_screen(GPUB_MODE_NTSC, GPUB_FPS_60);
     init_ots();
+    GPUB_INIT_DEBUG_FNT_DEFAULT();
     gpub_set_bg_color(&bg_color);
     initPolys();
     addPrimes();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<iso_project image_name="../../target/play-sounds-libsnd.iso" cue_sheet="play-sounds-libsnd.cue" no_xa="0">
+<iso_project image_name="../../target/play-sounds-libsnd.iso" no_xa="0">
 	<track type="data">
-		<license file="../../tools/LICENSEE.DAT"/>
+		<license file="../../tools/LICENSEA.DAT"/>
 		<directory_tree>
 			<file name="SYSTEM.CNF" type="data" source="../../tools/SYSTEM.CNF"/>
 			<file name="MAIN.EXE" type="data" source="play-sounds-libsnd.ps-exe"/>

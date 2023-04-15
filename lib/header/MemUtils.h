@@ -31,10 +31,10 @@
         MEM_FREE_3_AND_NULL(linked_list_aux);      \
     }
 
-#define MEM_FREE_STRS(char_array, i, n)         \
-    for (i = 0; i < n; i++) {                   \
-        MEM_FREE_3_AND_NULL(char_array[i]);     \
-    }                                           \
+#define MEM_FREE_STRS(char_array, n)                                \
+    for (int str_idx = 0; str_idx < n; str_idx++) {                 \
+        MEM_FREE_3_AND_NULL(char_array[i]);                         \
+    }                                                               \
     MEM_FREE_3_AND_NULL(char_array)
 
 /**

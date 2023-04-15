@@ -8,7 +8,6 @@
 #include "../../lib/header/TextBox.h"
 #include "../../lib/header/Logger.h"
 #include "../../lib/header/MemUtils.h"
-#include "../../lib/header/CollisionHandler.h"
 
 // Constants
 #define NUM_PLAYERS 1
@@ -32,63 +31,48 @@ DlgBox dlg_box_fixed;
 char *animated_messages[2];
 
 Controller g_ctrl;
-GsBOXF bounds[NUM_BOUNDS]; // Use GsBOXF so we can render them simply
-RECT r_bounds[NUM_BOUNDS];
+
+GsBOXF bounds[NUM_BOUNDS] = { // Use GsBOXF so we can render them simply
+        {1, 100, 100, 50,  50, 255, 0,   0},
+        {1, 175, 100, 100, 1,  155, 10,  0},
+        {1, 200, 50,  1,   60, 215, 0,   10},
+        {1, 200, 220, 1,   1,  195, 0,   50},
+        {1, 450, 350, 20,  80, 10,  255, 50},
+        {1, 350, 450, 100, 10, 50,  155, 20}
+};
+RECT r_bounds[NUM_BOUNDS] = {
+        {100, 100, 50,  50},
+        {175, 100, 100, 1},
+        {200, 50,  1,   60},
+        {200, 220, 1,   1},
+        {450, 350, 20,  80},
+        {350, 450, 100, 10}
+};
+
 RECT clipping_area = {0, 0, 320, 240};
 
-void init_bounds() {
-    GsBOXF r1 = {1, 100, 100, 50, 50, 255, 0, 0};
-    GsBOXF r2 = {1, 175, 100, 100, 1, 155, 10, 0};
-    GsBOXF r3 = {1, 200, 50, 1, 60, 215, 0, 10};
-    GsBOXF r4 = {1, 200, 220, 1, 1, 195, 0, 50};
-    GsBOXF r5 = {1, 450, 350, 20, 80, 10, 255, 50};
-    GsBOXF r6 = {1, 350, 450, 100, 10, 50, 155, 20};
-    RECT rect_1 = {100, 100, 50, 50};
-    RECT rect_2 = {175, 100, 100, 1};
-    RECT rect_3 = {200, 50, 1, 60};
-    RECT rect_4 = {200, 220, 1, 1};
-    RECT rect_5 = {450, 350, 20, 80};
-    RECT rect_6 = {350, 450, 100, 10};
-    bounds[0] = r1;
-    bounds[1] = r2;
-    bounds[2] = r3;
-    bounds[3] = r4;
-    bounds[4] = r5;
-    bounds[5] = r6;
-    r_bounds[0] = rect_1;
-    r_bounds[1] = rect_2;
-    r_bounds[2] = rect_3;
-    r_bounds[3] = rect_4;
-    r_bounds[4] = rect_5;
-    r_bounds[5] = rect_6;
-}
-
 void draw_bounds() {
-    u_char i;
-    for (i = 0; i < NUM_BOUNDS; i++) {
+    for (u_char i = 0; i < NUM_BOUNDS; i++) {
         GPUB_GS_SORT_BOX_FILL(&bounds[i]);
     }
 }
 
 void init_ots() {
-    int i;
-    for (i = 0; i < GPUB_NUM_BUFFERS; i++) {
+    for (int i = 0; i < GPUB_NUM_BUFFERS; i++) {
         gpub_init_ot(&gpub_ot[i][OT_MAIN], &orderingTable[i][OT_MAIN], minorOrderingTable[i][OT_MAIN], GPUB_OT_LENGTH_STD);
         gpub_init_ot(&gpub_ot[i][OT_HUD], &orderingTable[i][OT_HUD], minorOrderingTable[i][OT_HUD], GPUB_OT_LENGTH_SM);
     }
 }
 
 int main() {
-    Font fnt;
     Color bg_color = {90, 70, 20};
     VerticalGoraudColor canvas_color, fixed_color;
-    Dialog *dlg;
     MEM_INIT_HEAP_3();
     gpub_init_screen(GPUB_MODE_NTSC, GPUB_FPS_60);
     gpub_set_bg_color(&bg_color);
     init_ots();
     CDR_INIT();
-    fnt = *txt_fnt_init("FONT.TIM", 8, 8, 2);
+    Font fnt = *txt_fnt_init("FONT.TIM", 8, 8, 2);
     CDR_CLOSE();
     asmg_audio_init();
     TBX_INIT_VERT_GORAUD_COLOR(&canvas_color, 10, 10, 40, 0, 0, 200 - 40);
@@ -96,9 +80,8 @@ int main() {
     animated_messages[0] = "Animated Message works!";
     animated_messages[1] = "Johan is cool";
     CTRL_INIT_P1(&g_ctrl);
-    dlg = txt_dlg_init(animated_messages, "yolo", 2, &fnt, 5, 30, 70, 1);
+    Dialog *dlg = txt_dlg_init(animated_messages, "yolo", 2, &fnt, 5, 30, 70, 1);
     dlg_box_fixed = *tbx_init_dlg_box(20, 60, 260, 0, 200, 60, &canvas_color, dlg);
-    init_bounds();
     gobj_camera_init(&camera, NULL);
 
     while (1) {

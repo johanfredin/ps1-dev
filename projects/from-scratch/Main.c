@@ -61,19 +61,15 @@ int main() {
 void init_players(u_char numPlayers) {
     // Load hero sprites from disc
     CdrData *asset = cdr_read_file("PLAYER.TIM");
-    int i;
     logr_log(INFO, "Main.c", "init_players", "******************************************");
     logr_log(INFO, "Main.c", "init_players", "* FETCHING PLAYER ASSETS, NUM-PLAYERS=%d *", numPlayers);
     logr_log(INFO, "Main.c", "init_players", "******************************************");
 
-    for (i = 0; i < numPlayers; i++) {
+    for (int i = 0; i < numPlayers; i++) {
         GsSPRITE *sprite = MEM_MALLOC_3(GsSPRITE);
-        GameObject *go;
-        Animation *anim;
-
         asmg_load_sprite(sprite, asset, 126, 128, BIT_DEPTH_8);
-        go = gobj_init(sprite, 16, 16, 0, 0, 100, GOBJ_TYPE_PLAYER);
-        anim = gobj_anim_init(0, 0, 3, 3);
+        GameObject *go = gobj_init(sprite, 16, 16, 0, 0, 100, GOBJ_TYPE_PLAYER);
+        Animation *anim = gobj_anim_init(0, 0, 3, 3);
         player = gobj_player_init(anim, go, 0);
     }
 }
@@ -92,8 +88,7 @@ void sfx_load() {
 }
 
 void init_ots() {
-    int i;
-    for (i = 0; i < GPUB_NUM_BUFFERS; i++) {
+    for (int i = 0; i < GPUB_NUM_BUFFERS; i++) {
         gpub_init_ot(&gpub_ot[i][0], &orderingTable[i][0], minorOrderingTable[i][0], GPUB_OT_LENGTH_STD);
         gpub_init_ot(&gpub_ot[i][1], &orderingTable[i][1], minorOrderingTable[i][1], GPUB_OT_LENGTH_SM);
     }

@@ -5,19 +5,12 @@
 #include "../header/MemUtils.h"
 
 void add_tile_layers_to_map(Tile_Map *tm, JSON_Data *jobj_root);
-
 void add_data_to_layer(Tile_Layer *layer, JSON_Data *root);
-
 void add_additional_properties_to_layer(Tile_Layer *layer, JSON_Data *root);
-
 void add_tile_sets_to_map(Tile_Map *tm, JSON_Data *root);
-
 void add_object_layers_to_map(Tile_Map *tm, JSON_Data *root);
-
 void add_teleport_layers_to_map(Tile_Map *tm, JSON_Data *root);
-
 void add_dialog_layers_to_map(Tile_Map *tm, JSON_Data *root);
-
 Tile_Map *malloc_tile_map();
 
 

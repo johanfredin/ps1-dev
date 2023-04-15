@@ -6,7 +6,6 @@
 #include "../../lib/header/StrUtils.h"
 #include "../../lib/header/Logger.h"
 #include "../../lib/header/CollisionHandler.h"
-#include <stdio.h>
 
 #include <libetc.h>
 
@@ -32,7 +31,7 @@ u_char g_frame_cnt;
 u_char g_current_frame = MAP_START_FRAME;
 
 CdrDATrack tracks[CDDA_TRACKS] = {
-        {TRACK_WORLD, 0},
+        {TRACK_WORLD,   0},
         {TRACK_INDOORS, 0}
 };
 
@@ -66,7 +65,6 @@ FR_TileSet *transfer_to_frame_tileset(Tile_Map *map);
 void load_tilesets();
 
 void map_init(u_char level, Player *player, Camera *camera) {
-    u_char i;
     load_level_assets_from_cd(level);
     load_tilesets();
 
@@ -85,7 +83,7 @@ void map_init(u_char level, Player *player, Camera *camera) {
     g_ctrl = ctrl_init(CTRL_PLAYER_1);
 
     // Cleanup
-    for (i = 0; i < g_assets_cnt; i++) {
+    for (u_char i = 0; i < g_assets_cnt; i++) {
         CDR_DATA_FREE(g_map_cdr_data_assets[i]);
     }
     MEM_FREE_3_AND_NULL(g_map_cdr_data_assets);
@@ -124,9 +122,8 @@ void load_level_assets_from_cd(u_char level) {
  * Retrieve the GS_SPRITE and the asset name.
  */
 void load_tilesets() {
-    u_char i;
     g_map_tile_sets = MEM_CALLOC_3_PTRS(g_map_tilesets_count, FR_TileSet);
-    for (i = 0; i < g_map_tilesets_count; i++) {
+    for (u_char i = 0; i < g_map_tilesets_count; i++) {
         GsSPRITE *sprite = MEM_MALLOC_3(GsSPRITE);
         g_map_tile_sets[i] = frames_malloc_fr_tileset();
         asmg_load_sprite(sprite, g_map_cdr_data_assets[i], 0, 0, BIT_DEPTH_8);
@@ -138,29 +135,20 @@ void load_tilesets() {
 }
 
 void init_frame(Frame *frame, char *json_map_file, CdrDATrack *audio_track) {
-    // Declarations --------------------------
-    CdrData *json_cdr_data;
-    u_long *content;
-    JSON_Data *json_map_data;
-    Tile_Map *tile_map;
-
-    // Map coords
-    u_short frame_w, frame_h;
-    u_char offset_x = 0, offset_y = 0;
-
     // Parse json file into tile map
-    json_cdr_data = cdr_find_data_entry(json_map_file, g_map_cdr_data_assets, g_assets_cnt);
+    CdrData *json_cdr_data = cdr_find_data_entry(json_map_file, g_map_cdr_data_assets, g_assets_cnt);
     logr_log(INFO, "Map.c", "init_frame", "JSON file=%s retrieved", json_map_file);
-    content = json_cdr_data->file;
-    json_map_data = jsonp_parse((char *) content);
-    tile_map = tiled_populate_from_json(json_map_data);
+    u_long *content = json_cdr_data->file;
+    JSON_Data *json_map_data = jsonp_parse((char *) content);
+    Tile_Map *tile_map = tiled_populate_from_json(json_map_data);
     tiled_print_map(DEBUG, tile_map);
     frame->fr_tilesets = transfer_to_frame_tileset(tile_map);
 
     // Calc potential x and/or y offsets (e.g frame is smaller than screen w and/or h)
-    frame_w = tile_map->width * tile_map->tile_width;
-    frame_h = tile_map->height * tile_map->tile_height;
+    u_short frame_w = tile_map->width * tile_map->tile_width;
+    u_short frame_h = tile_map->height * tile_map->tile_height;
 
+    u_char offset_x = 0, offset_y = 0;
     if (frame_w < gpub_screen_w) {
         offset_x = (gpub_screen_w - frame_w) / 2;
     }
@@ -198,10 +186,14 @@ void frame_init_collision_blocks(Tile_Map *tile_map, Frame *frame) {
     ObjectLayer_Bounds *curr_b;
     u_char blocks_cnt = tile_map->bounds_cnt;
     MAP_MALLOC_COLLISION_BLOCK(collision_blocks, blocks_cnt);
-    for (i = 0, curr_b = tile_map->bounds; curr_b != NULL; i++, curr_b = curr_b->next) {
+    for (
+            i = 0, curr_b = tile_map->bounds;
+            curr_b != NULL;
+            i++, curr_b = curr_b->next
+            ) {
         u_short x = curr_b->x + frame->offset_x;
         u_short y = curr_b->y + frame->offset_y;
-        collision_blocks->bounds[i] = get_rect((short) x, (short) y, (short) curr_b->width, (short) curr_b->height);
+        collision_blocks->bounds[i] = get_rect(x, y, curr_b->width, curr_b->height);
     }
     collision_blocks->amount = blocks_cnt;
     frame->collision_blocks = collision_blocks;
@@ -213,10 +205,14 @@ void frame_init_teleports(Tile_Map *tile_map, Frame *frame) {
     Teleport *teleports;
     u_char teleports_cnt = tile_map->teleports_cnt;
     teleports = MEM_CALLOC_3(teleports_cnt, Teleport);
-    for (i = 0, curr_t = tile_map->teleports; curr_t != NULL; i++, curr_t = curr_t->next) {
+    for (
+            i = 0, curr_t = tile_map->teleports;
+            curr_t != NULL;
+            i++, curr_t = curr_t->next
+            ) {
         u_short x = curr_t->x + frame->offset_x;
         u_short y = curr_t->y + frame->offset_y;
-        teleports[i].origin = get_rect((short) x, (short) y, (short) curr_t->width, (short) curr_t->height);
+        teleports[i].origin = get_rect(x, y, curr_t->width, curr_t->height);
         teleports[i].dest_x = curr_t->dest_x;
         teleports[i].dest_y = curr_t->dest_y;
         teleports[i].dest_frame = curr_t->dest_frame;
@@ -233,12 +229,13 @@ void frame_init_dialogs(Tile_Map *tile_map, Frame *frame) {
         FR_Dialog *dialogs;
         dialogs = MEM_CALLOC_3(dialogs_cnt, FR_Dialog);
         dialogs->content = NULL;
-        for (i = 0, curr_d = tile_map->dialogs; curr_d != NULL; i++, curr_d = curr_d->next) {
+        for (
+                i = 0, curr_d = tile_map->dialogs;
+                curr_d != NULL;
+                i++, curr_d = curr_d->next
+                ) {
             char **strs = (char **) MEM_MALLOC_3_STRS(strlen(curr_d->text));
             char *token = strtok(curr_d->text, ";");
-            int msg_idx;
-            DlgBox *dlgBox;
-            Dialog *dialog;
             u_short x = curr_d->x + frame->offset_x;
             u_short y = curr_d->y + frame->offset_y;
             short dlg_x = 20, dlg_y = 40;
@@ -251,19 +248,21 @@ void frame_init_dialogs(Tile_Map *tile_map, Frame *frame) {
                 token = strtok(NULL, ";");
             }
 
-            dialogs[i].bounds = get_rect((short) x, (short) y, (short) curr_d->width, (short) curr_d->height);
+            dialogs[i].bounds = get_rect(x, y, curr_d->width, curr_d->height);
             dialogs[i].n_lines = curr_d->n_lines;
             dialogs[i].max_chars = curr_d->max_chars;
             dialogs[i].initialized = 0;
 
             // Create a dialog struct from acquired properties in tiled map editor.
-            dlg_w = (short) ((curr_d->max_chars * (g_fnt->cw + g_fnt->padding)) + (g_fnt->padding * 2));
-            dlg_target_h = (short) ((curr_d->n_lines * (g_fnt->ch + g_fnt->padding)) + (g_fnt->padding * 4));
+            dlg_w = ((curr_d->max_chars * (g_fnt->cw + g_fnt->padding)) + (g_fnt->padding * 2));
+            dlg_target_h = ((curr_d->n_lines * (g_fnt->ch + g_fnt->padding)) + (g_fnt->padding * 4));
 
             // Now we have the message tokens, lets create a dialog
-            dialog = txt_dlg_init(strs, NULL, n_messages, g_fnt, 3, dlg_x + (g_fnt->padding * 2),
-                                  dlg_y + (g_fnt->padding * 2), 0);
-            dlgBox = tbx_init_dlg_box(dlg_x, dlg_y, dlg_w, 0, dlg_w, dlg_target_h, g_canvas_clr, dialog);
+            Dialog *dialog = txt_dlg_init(
+                    strs, NULL, n_messages, g_fnt, 3,
+                    dlg_x + (g_fnt->padding * 2), dlg_y + (g_fnt->padding * 2), 0
+            );
+            DlgBox *dlgBox = tbx_init_dlg_box(dlg_x, dlg_y, dlg_w, 0, dlg_w, dlg_target_h, g_canvas_clr, dialog);
 
             // Assign to array
             dialogs[i].content = dlgBox;
@@ -274,7 +273,7 @@ void frame_init_dialogs(Tile_Map *tile_map, Frame *frame) {
             frame->d_amount = dialogs_cnt;
 
             // remove allocated strings, no longer needed
-            MEM_FREE_STRS(strs, msg_idx, n_messages);
+            MEM_FREE_STRS(strs, n_messages);
         }
     } else {
         frame->dialogs = NULL; // set to NULL since there can be frames without dialogs
@@ -282,16 +281,13 @@ void frame_init_dialogs(Tile_Map *tile_map, Frame *frame) {
 }
 
 FR_TileSet *transfer_to_frame_tileset(Tile_Map *map) {
-    Tile_Set *curr_ts;
     FR_TileSet *fr_tile_sets = MEM_CALLOC_3(map->tilesets_cnt, FR_TileSet);
     u_char match_cnt = 0;
 
     // Iterate tilesets that the tile map is using
-    for (curr_ts = map->tile_sets; curr_ts != NULL; curr_ts = curr_ts->next) {
-        u_char i;
-
+    for (Tile_Set *curr_ts = map->tile_sets; curr_ts != NULL; curr_ts = curr_ts->next) {
         // Iterate the map FR_Tileset array to look for a matching image
-        for (i = 0; i < g_map_tilesets_count; i++) {
+        for (u_char i = 0; i < g_map_tilesets_count; i++) {
             u_char count;
             char *source = curr_ts->source;
             char substr[16];
@@ -303,7 +299,6 @@ FR_TileSet *transfer_to_frame_tileset(Tile_Map *map) {
              */
             char *tim_name = strcpy(MEM_CALLOC_3(strlen(map_fr_tile_set->source) + 1, char), map_fr_tile_set->source);
             STR_TO_LOWERCASE(tim_name);
-
             STR_READ_UNTIL(tim_name, substr, '.', count);
             MEM_FREE_3_AND_NULL(tim_name);
 
@@ -334,13 +329,10 @@ RECT get_rect(short x, short y, short w, short h) {
 }
 
 void map_ot_sort_bg_layers() {
-    SpriteLayer *curr_sl;
     Frame *frame = &g_map_frames[g_current_frame];
-
     if (frame->bg_layers != NULL) {
-        for (curr_sl = frame->bg_layers; curr_sl != NULL; curr_sl = curr_sl->next) {
-            u_short i;
-            for (i = 0; i < curr_sl->sprites_cnt; i++) {
+        for (SpriteLayer *curr_sl = frame->bg_layers; curr_sl != NULL; curr_sl = curr_sl->next) {
+            for (u_short i = 0; i < curr_sl->sprites_cnt; i++) {
                 if (CHDLR_SPRITE_IN_VIEW(curr_sl->sprites[i], g_camera)) {
                     GPUB_GS_SORT_FAST_OBJ(curr_sl->sprites[i]);
                 }
@@ -354,13 +346,10 @@ void map_ot_sort_bg_layers() {
 }
 
 void map_ot_sort_fg_layers() {
-    SpriteLayer *curr_sl;
     Frame *frame = &g_map_frames[g_current_frame];
-
     if (frame->fg_layers != NULL) {
-        for (curr_sl = frame->fg_layers; curr_sl != NULL; curr_sl = curr_sl->next) {
-            u_short i;
-            for (i = 0; i < curr_sl->sprites_cnt; i++) {
+        for (SpriteLayer *curr_sl = frame->fg_layers; curr_sl != NULL; curr_sl = curr_sl->next) {
+            for (u_short i = 0; i < curr_sl->sprites_cnt; i++) {
                 if (CHDLR_SPRITE_IN_VIEW(curr_sl->sprites[i], g_camera)) {
                     GPUB_GS_SORT_FAST_OBJ(curr_sl->sprites[i]);
                 }
@@ -372,8 +361,7 @@ void map_ot_sort_fg_layers() {
 void map_ot_sort_hud_layer() {
     Frame *frame = &g_map_frames[g_current_frame];
     if (frame->dialogs != NULL) {
-        u_char i;
-        for (i = 0; i < frame->d_amount; i++) {
+        for (u_char i = 0; i < frame->d_amount; i++) {
             tbx_draw(frame->dialogs[i].content);
         }
     }
@@ -393,18 +381,16 @@ void map_tick() {
         handle_block_collision(frame->game_object, frame);
         handle_teleport_collision(frame->game_object, frame);
     }
-
 }
 
 void handle_block_collision(GameObject *gobj, Frame *frame) {
     CollisionBlock *blocks = frame->collision_blocks;
-    u_short i;
     switch (gobj->type) {
         case GOBJ_TYPE_PLAYER:
             chdlr_collision_resolve(gobj, blocks->bounds, blocks->amount);
             break;
         case GOBJ_TYPE_NPC:
-            for (i = 0; i < blocks->amount; i++) {
+            for (u_short i = 0; i < blocks->amount; i++) {
                 if (chdlr_overlaps(gobj->bounds, blocks[i].bounds)) {
                     if (gobj->heading & (GOBJ_HEADING_RIGHT | GOBJ_HEADING_LEFT)) {
                         GOBJ_SWITCH_X_DIR(gobj);
@@ -419,16 +405,15 @@ void handle_block_collision(GameObject *gobj, Frame *frame) {
 
 void handle_teleport_collision(GameObject *gobj, Frame *frame) {
     Teleport *teleports = frame->teleports;
-    u_char i;
-    for (i = 0; i < frame->t_amount; i++) {
+    for (u_char i = 0; i < frame->t_amount; i++) {
         Teleport t = teleports[i];
         if (chdlr_overlaps(gobj->bounds, &t.origin)) {
             g_current_frame = t.dest_frame; // Update curr frame to dest frame so that we can get its offsets (if any)
             if (t.dest_x > 0) {
-                gobj->sprite->x = (short) (t.dest_x + g_map_frames[g_current_frame].offset_x);
+                gobj->sprite->x = (t.dest_x + g_map_frames[g_current_frame].offset_x);
             }
             if (t.dest_y > 0) {
-                gobj->sprite->y = (short) (t.dest_y + g_map_frames[g_current_frame].offset_y);
+                gobj->sprite->y = (t.dest_y + g_map_frames[g_current_frame].offset_y);
             }
             g_camera->map_w = g_map_frames[g_current_frame].width;
             g_camera->map_h = g_map_frames[g_current_frame].height;
@@ -453,10 +438,9 @@ void handle_teleport_collision(GameObject *gobj, Frame *frame) {
 }
 
 void handle_dialog_collision(GameObject *gobj, Frame *frame) {
-    FR_Dialog *dialogs = frame->dialogs;
     if (frame->dialogs != NULL) {
-        u_char i;
-        for (i = 0; i < frame->d_amount; i++) {
+        FR_Dialog *dialogs = frame->dialogs;
+        for (u_char i = 0; i < frame->d_amount; i++) {
             FR_Dialog *d = &dialogs[i];
             if (chdlr_overlaps(gobj->bounds, &d->bounds)) {
                 CTRL_READ_INPUT(g_ctrl);

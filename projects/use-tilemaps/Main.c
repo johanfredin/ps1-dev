@@ -2,8 +2,8 @@
 #include "../../lib/header/Frames.h"
 #include "../../lib/header/Logger.h"
 #include "../../lib/header/MemUtils.h"
-#include "../../lib/header/TileFetcher.h"
 #include "../../lib/header/Map.h"
+#include "../../lib/header/GPUBase.h"
 
 #define NUM_PLAYERS 1
 #define NUM_OTS 2
@@ -20,8 +20,7 @@ Player *player;
 Camera camera;
 
 void init_ots() {
-    int i;
-    for (i = 0; i < GPUB_NUM_BUFFERS; i++) {
+    for (int i = 0; i < GPUB_NUM_BUFFERS; i++) {
         gpub_init_ot(&gpub_ot[i][0], &orderingTable[i][0], minorOrderingTable[i][0], GPUB_OT_LENGTH_STD);
         gpub_init_ot(&gpub_ot[i][1], &orderingTable[i][1], minorOrderingTable[i][1], GPUB_OT_LENGTH_SM);
     }
@@ -31,10 +30,9 @@ void init_player() {
      // Load hero sprites from disc
     CdrData *asset = cdr_read_file("PLAYER.TIM");
     GsSPRITE *sprite = MEM_MALLOC_3(GsSPRITE);
-    GameObject *go;
 
     asmg_load_sprite(sprite, asset, 126, 128, BIT_DEPTH_8);
-    go = gobj_init(sprite, 16, 16, 4, 4, 100, GOBJ_TYPE_PLAYER);
+    GameObject *go = gobj_init(sprite, 16, 16, 4, 4, 100, GOBJ_TYPE_PLAYER);
     player = gobj_player_init(NULL, go, 0);
 
     MEM_FREE_3_AND_NULL(asset);

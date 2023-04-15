@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<iso_project image_name="../../target/multiple-ots.iso" cue_sheet="multiple-ots.cue" no_xa="1">
+<iso_project image_name="../../target/multiple-ots.iso" no_xa="1">
 	<track type="data">
-		<license file="../../tools/LICENSEE.DAT"/>
+		<license file="../../tools/LICENSEA.DAT"/>
 		<directory_tree>
 			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
 			<file name="MAIN.EXE"		type="data"	source="multiple-ots.ps-exe"/>

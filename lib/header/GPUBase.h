@@ -32,7 +32,7 @@
     FntLoad(tx, ty);                                                                                                \
     SetDumpFnt(FntOpen(x, y, w, h, bg, max_chars)) // Sets the dumped font for use with FntPrint()
 
-#define GPUB_INIT_DEBUG_FNT_DEFAULT() GPUB_INIT_DEBUG_FNT(960, 256, 5, 10, 320, 32, FNT_IS_BG, 512)
+#define GPUB_INIT_DEBUG_FNT_DEFAULT() GPUB_INIT_DEBUG_FNT(960, 256, 5, 10, 320, 32, 0, 512)
 
 
 typedef struct Color {

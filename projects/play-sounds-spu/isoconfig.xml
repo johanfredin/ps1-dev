@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<iso_project image_name="../../target/play-sounds-spu.iso" cue_sheet="play-sounds-spu.cue" no_xa="1">
+<iso_project image_name="../../target/play-sounds-spu.iso" no_xa="1">
 	<track type="data">
-		<license file="../../tools/LICENSEE.DAT"/>
+		<license file="../../tools/LICENSEA.DAT"/>
 		<directory_tree>
 			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
 			<file name="MAIN.EXE"		type="data"	source="play-sounds-spu.ps-exe"/>

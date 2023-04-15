@@ -23,22 +23,19 @@ void init_ots() {
     gpub_init_ot(&gpub_ot[1], &orderingTable[1], minorOrderingTable[1], GPUB_OT_LENGTH_STD);
 }
 
-
 int main() {
-    Font *fnt;
-    Dialog *dlg_anim;
     Color bg_color = {20, 70, 120};
     MEM_INIT_HEAP_3();
     gpub_init_screen(GPUB_MODE_NTSC, GPUB_FPS_60);
     gpub_set_bg_color(&bg_color);
     init_ots();
     CDR_INIT();
-    fnt = txt_fnt_init("FONT.TIM", 8, 8, 2);
+    Font *fnt = txt_fnt_init("FONT.TIM", 8, 8, 2);
     CDR_CLOSE();
     animated_messages[0] = "Animated Message works!";
     animated_messages[1] = "Johan is cool";
     animated_messages[2] = "Julia is cool";
-    dlg_anim = txt_dlg_init(animated_messages, "yolo", 3, fnt, 5, 50, 150, 1);
+    Dialog *dlg_anim = txt_dlg_init(animated_messages, "yolo", 3, fnt, 5, 50, 150, 1);
 
     while (1) {
         // Clear display

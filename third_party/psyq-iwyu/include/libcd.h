@@ -288,6 +288,12 @@ extern "C" {
 
 void CdFlush(void);
 CdlFILE *CdSearchFile(CdlFILE *fp, char *name);
+/**
+ * Translate an absolute sector number to a minute/seconds/sector time code.
+ * @param i Absolute sector number
+ * @param p Pointer to a CdlLOC structure that will be set to the position time code
+ * @return p
+ */
 CdlLOC *CdIntToPos(int i, CdlLOC *p) ;
 char *CdComstr(u_char com);
 char *CdIntstr(u_char intr);
@@ -297,7 +303,25 @@ int CdControlF(u_char com, u_char *param);
 int CdGetSector(void *madr, int size);
 int CdGetSector2( void* madr, int size );
 int CdDataSync(int mode);
+/**
+ * Get starting position of each track on the CD-ROM disc.
+ * The maximum number of tracks is 100.
+ * @param loc Pointer to location table
+ * @return Positive integer is a track number; anything else is an error.
+ */
 int CdGetToc(CdlLOC *loc) ;
+/**
+ * Plays multiple tracks specified by the array tracks in order. After playing the last track of the array, it repeats
+ * or stops playing according to the mode specified.
+ * All playing is done in units of tracks. Playing or stopping in the middle of a track is not allowed.
+ * @param mode  0: Stops playing
+ * 1: Plays tracks in tracks array in the specified order. Stop at end.
+ * 2: Plays tracks in tracks array in the specified order. Repeat at end.
+ * 3: Returns an index of the array corresponding to the track currently being
+ * @param track Pointer to array specifying the tracks to be played. Must end with 0.
+ * @param offset index of the tracks to be played.
+ * @return Index of the track currently being played (not the track number). -1 when it has already stopped playing.
+ */
 int CdPlay(int mode, int *track, int offset);
 int CdMix(CdlATV *vol);
 int CdPosToInt(CdlLOC *p);
@@ -312,7 +336,30 @@ void (*CdDataCallback(void (*func)()));
 CdlCB CdReadCallback(CdlCB func);
 CdlCB CdReadyCallback(CdlCB func);
 CdlCB CdSyncCallback(CdlCB func);
+
+/**
+ * Resets the CD-ROM subsystem. The mode parameter is not used by current versions of the library and
+ * should be set to 0.
+ * When initialization fails, up to four retries are performed. Since CdInit() and CdReset() reset the SPU sound
+ * volume and CD input volume to the SPU, etc., they must be called before libspu/libsnd initialization and
+ * setting functions.
+ * @return 1 if initialization is successful; 0 on failure.
+ */
 int CdInit(void);
+/**
+ * Initializes the CD-ROM subsystem. Lower-level alternative to CdInit().
+ * Unlike CdInit(), this function does not initialize the event environment related to CD-ROM.
+ * mode can be:
+ * <ul>
+ * <li>0: Initialization of CD subsystem only (volume settings specified in previous sound libraries are saved)</li>
+  *<li>1: Initialization of CD subsystem and CD audio volume (CD-DA, ADPCM)</li>
+ * </ul>
+ *
+ * No retry is carried out. Since CdInit() and CdReset() reset the SPU sound volume and CD input volume to
+ * the SPU, etc., they must be called before libspu/libsnd initialization and setting functions.
+ * @param mode Reset mode
+ * @return 1 if initialization successful; 0 if unsuccessful.
+ */
 int CdReset(int mode);
 int CdStatus(void);
 int CdLastCom(void);

@@ -57,4 +57,5 @@ add_executable(
         projects/collision/Main.c
         projects/camera/Main.c
         projects/multiple-ots/Main.c
+        projects/cappy-test/Main.c
 )

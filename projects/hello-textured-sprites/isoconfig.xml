@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<iso_project image_name="../../target/hello-textured-sprites.iso" no_xa="1">
+	<track type="data">
+		<license file="../../tools/LICENSEA.DAT"/>
+		<directory_tree>
+			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
+			<file name="MAIN.EXE"		type="data"	source="hello-textured-sprites.ps-exe"/>
+
+			<file name="CAPPY.TIM"		type="data"	source="../../assets/tim/capmv"/>
+			<file name="CRASH.TIM"		type="data"	source="../../assets/tim/crash16"/>
+			<file name="RAICHU.TIM"		type="data"	source="../../assets/tim/RAICHU_4.TIM"/>
+
+			<!-- Add your own files or folders here -->
+			<dummy sectors="1024"/>
+			
+		</directory_tree>
+	</track>
+</iso_project>

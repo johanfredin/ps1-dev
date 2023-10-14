@@ -849,8 +849,32 @@ extern DISPENV *SetDefDispEnv(DISPENV *env, int x, int y, int w, int h);
 
 extern DRAWENV *GetDrawEnv(DRAWENV *env);
 
+/**
+ * Set the drawing environment.<br>
+ * The basic drawing parameters (such as the drawing offset and the drawing clip area) are set according to
+ * the values specified in env.
+ * The drawing environment is effective until the next time PutDrawEnv() is executed, or until the DR_ENV
+ * primitive is executed.
+ * @param env Pointer to drawing environment start address
+ * @return A pointer to the drawing environment set. On failure, returns 0.
+ */
 extern DRAWENV *PutDrawEnv(DRAWENV *env);
 
+/**
+ * Set standard drawing environment structure.<br>
+ * Sets the drawing area members of a DRAWENV (drawing environment) structure. The new drawing area is
+ * specified using the coordinates within the frame buffer of the top left corner, along with the width and
+ * height, of the desired rectangle.<br>
+ * <br>
+ * This function does not actually change the drawing environment. It merely sets the members of the
+ * specified structure as desired. Use PutDrawEnv() with this structure to change the actual environment.
+ * @param env Pointer to drawing environment
+ * @param x Upper left corner of drawing area x pos
+ * @param y Upper left corner of drawing area y pos
+ * @param w Width of drawing area
+ * @param h Height of drawing area
+ * @return The starting pointer of the drawing environment set.
+ */
 extern DRAWENV *SetDefDrawEnv(DRAWENV *env, int x, int y, int w, int h);
 
 /**
@@ -1108,8 +1132,8 @@ extern void DumpTPage(u_short tpage);
  * this is similar to the texture page area, tx is restricted to a multiple of 64 and ty is restricted to a multiple of
  * 256.
  * Loads the Clut to location (tx, ty+128).
- * @param tx x pos
- * @param ty y pos
+ * @param tx frame buffer x pos
+ * @param ty frame buffer y pos
  */
 extern void FntLoad(int tx, int ty);
 

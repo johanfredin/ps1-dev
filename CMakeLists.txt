@@ -42,20 +42,24 @@ add_executable(
         lib/source/Controller.c
         lib/source/CollisionHandler.c
 
-        # Projects
-        projects/from-scratch/Main.c
-        projects/from-scratch/Map.c
-        projects/use-tilemaps/Main.c
-        projects/use-tilemaps/Map.c
-        projects/draw-primes-in-ot/Main.c
-        projects/play-sounds-cdda/Main.c
-        projects/play-sounds-libsnd/Main.c
-        projects/play-sounds-spu/Main.c
-        projects/use-fonts/Main.c
-        projects/dialog-boxes/Main.c
-        projects/tim-loading/Main.c
-        projects/collision/Main.c
-        projects/camera/Main.c
-        projects/multiple-ots/Main.c
-        projects/cappy-test/Main.c
+        # LIBGS Projects
+        gs_projects/from-scratch/Main.c
+        gs_projects/from-scratch/Map.c
+        gs_projects/use-tilemaps/Main.c
+        gs_projects/use-tilemaps/Map.c
+        gs_projects/draw-primes-in-ot/Main.c
+        gs_projects/play-sounds-cdda/Main.c
+        gs_projects/play-sounds-libsnd/Main.c
+        gs_projects/play-sounds-spu/Main.c
+        gs_projects/use-fonts/Main.c
+        gs_projects/dialog-boxes/Main.c
+        gs_projects/tim-loading/Main.c
+        gs_projects/collision/Main.c
+        gs_projects/camera/Main.c
+        gs_projects/multiple-ots/Main.c
+
+        # NON LIBGS Projects
+        projects/hello-debug-font/Main.c
+        projects/hello-flat-shaded-polys/Main.c
+        projects/hello-textured-sprites/Main.c
 )

@@ -13,6 +13,12 @@ CdrData *cdr_create_data_entry(char *name) {
     return asset;
 }
 
+void cdr_init_cdr_data(CdrData *cdr_data, char *name) {
+    cdr_data->name = name;
+    cdr_data->file = NULL;
+    cdr_data->sectors = 0;
+}
+
 CdrData *cdr_find_data_entry(char* name, CdrData **assets, u_char assets_cnt) {
     for(u_char i = 0; i < assets_cnt; i++) {
         if(STR_EQ(assets[i]->name, name)) {
@@ -24,9 +30,8 @@ CdrData *cdr_find_data_entry(char* name, CdrData **assets, u_char assets_cnt) {
     exit(1);
 }
 
-CdrData *cdr_read_file(char *file_path) {
+void cdr_read_from_disc(CdrData *cdr_data) {
     char file_path_raw[16];
-    CdrData *cdr_data = cdr_create_data_entry(file_path);
 
     // Get raw file path
     strcpy(file_path_raw, "\\");
@@ -41,7 +46,7 @@ CdrData *cdr_read_file(char *file_path) {
         logr_log(ERROR, "CdReader.c", "cdr_read_file", "File=%s not found, terminating...", cdr_data->name);
         exit(1);
     }
-    if ((long)res == CDR_INVALID_READ) {
+    if ((long) res == CDR_INVALID_READ) {
         logr_log(ERROR, "CdReader.c", "cdr_read_file", "CDR Read error for file=%s, terminating...", cdr_data->name);
         exit(1);
     }
@@ -62,12 +67,16 @@ CdrData *cdr_read_file(char *file_path) {
         }
 
         cdr_data->sectors = sectors_needed;
-        logr_log(INFO, "CdReader.c", "cdr_read_file", "File %s loaded from CD", file_path);
+        logr_log(INFO, "CdReader.c", "cdr_read_file", "File %s loaded from CD", cdr_data->name);
     } else {
-        logr_log(ERROR, "CdReader.c", "cdr_read_file", "File %s file not found on CD, terminating...", file_path);
+        logr_log(ERROR, "CdReader.c", "cdr_read_file", "File %s file not found on CD, terminating...", cdr_data->name);
         exit(1);
     }
+}
 
+CdrData *cdr_read_file(char *file_path) {
+    CdrData *cdr_data = cdr_create_data_entry(file_path);
+    cdr_read_from_disc(cdr_data);
     return cdr_data;
 }
 

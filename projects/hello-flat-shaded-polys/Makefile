@@ -1,7 +1,7 @@
 .PHONY: all cleansub
 all:
 	mkpsxiso -y isoconfig.xml
-	rm -f cappy-test.cue cappy-test.bin
+	rm -f hello-flat-shaded-polys hello-flat-shaded-polys.bin
 	rm -f *.map
 	rm -f *.elf
 	rm -f *.o rm -f *.dep
@@ -9,9 +9,9 @@ all:
 
 cleansub:
 	$(MAKE) clean
-	rm -f cappy-test.cue cappy-test.bin
+	rm -f hello-flat-shaded-polys.cue hello-flat-shaded-polys.bin
 
-TARGET = cappy-test
+TARGET = hello-flat-shaded-polys
 SRCS = Main.c
 
 include ../../Makefile

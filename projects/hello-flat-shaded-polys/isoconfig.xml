@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<iso_project image_name="../../target/cappy-test.iso" no_xa="1">
+<iso_project image_name="../../target/hello-flat-shaded-polys.iso" no_xa="1">
 	<track type="data">
 		<license file="../../tools/LICENSEA.DAT"/>
 		<directory_tree>
 			<file name="SYSTEM.CNF"		type="data"	source="../../tools/SYSTEM.CNF"/>
-			<file name="MAIN.EXE"		type="data"	source="cappy-test.ps-exe"/>
+			<file name="MAIN.EXE"		type="data"	source="hello-flat-shaded-polys.ps-exe"/>
 
 			<file name="CAPPY.TIM"		type="data"	source="../../assets/tim/cappy.tim"/>
 			<file name="PLAYER.TIM"		type="data"	source="../../assets/tim/psyduck.tim"/>

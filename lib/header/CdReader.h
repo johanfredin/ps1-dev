@@ -1,5 +1,6 @@
 /**
  * Helper lib for streaming data from the cd rom
+ * TODO: Remove HEAP requirements
  */
 #ifndef PSX_CD_READER_H
 #define PSX_CD_READER_H
@@ -48,7 +49,11 @@ typedef struct CdrDATrack {
 #define CDR_DA_CANT_STOP(da_track) (((da_track) == NULL) | !((da_track)->is_playing) | ((da_track)->track < CDR_VALID_DA_START_TRACK))
 
 CdrData *cdr_create_data_entry(char *name);
+
+void cdr_init_cdr_data(CdrData *cdr_data, char *name);
+
 CdrData *cdr_find_data_entry(char *name, CdrData **assets, unsigned char assets_cnt);
+void cdr_read_from_disc(CdrData *cdr_data);
 
 /**
  * Read contents of the cd. CdOpen should be called prior to this and CdClose after

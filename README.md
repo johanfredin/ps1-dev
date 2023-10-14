@@ -9,7 +9,7 @@ to compile!
 This repo is a trial and error work in progress where I mess around with the ps1 and learning C at the same time. I have been messing around with the ps1 on and off now for a couple of years as a fun side project and figured I might 
 as well share some of it with whoever might find it useful. Here is the structure:  
 
-* All projects are found under the (duh) [projects](projects) section. They contain the basic drawing of sprites, primitives, dialog boxes and playing audio. 
+* All projects are found under the (duh) [projects](gs_projects) section. They contain the basic drawing of sprites, primitives, dialog boxes and playing audio. 
 There is also a parser for the [Tiled](https://www.mapeditor.org/) map editor that is far from perfect, but gets the job done. The main project is the from-scratch project that is like an ugly 2d zelda clone.
 * Common project specific libraries under the [lib](lib) section is a common work in progress where once I find something useful I add to. Not sure if I will keep using LIBDS and/or LIBGS in the future but thats what im running now.
 * The [tools](tools) section contains a windows .exe version of mkpsxiso. If you'd rather use that you can update the make files inside the projects to use that one instead. The dlls are a requirement for that mkpsxiso version. Besides that are files required for building a ps1 cd.

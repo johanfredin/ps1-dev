@@ -38,12 +38,10 @@ char prim_buff[NUM_BUFFERS][PRIM_BUFF_32K];
  */
 char *next_prim = NULL;
 
-SPRT raichu_4bit;
 SPRT cappy_8bit;
 SPRT crash_16bit;
 TIM_IMAGE tim_crash;
 TIM_IMAGE tim_cappy;
-TIM_IMAGE tim_raichu;
 
 void init_system() {
     // Reset gpu and enable interrupts
@@ -75,10 +73,12 @@ void init_system() {
     db = 0;
 
     FntLoad(960, 0);
-    FntOpen(20, 20, SCREEN_W, 50, 0, 256);
+    FntOpen(100, 1, 180, 20, 1, 256);
 
     next_prim = prim_buff[0];
 
+    // Enable display
+    SetDispMask(1);
 }
 
 void load_tim_data(TIM_IMAGE *tim_data, CdrData *cdr_data) {
@@ -102,7 +102,7 @@ void load_tim_data(TIM_IMAGE *tim_data, CdrData *cdr_data) {
     }
 }
 
-void set_sprite(TIM_IMAGE *tim, SPRT *sprite, u_short u, u_short v) {
+void set_sprite(TIM_IMAGE *tim, SPRT *sprite) {
     setSprt(sprite);
     addPrim(ot, sprite);                  // Sort the primitive and advance
 
@@ -129,44 +129,20 @@ void set_sprite(TIM_IMAGE *tim, SPRT *sprite, u_short u, u_short v) {
 
 }
 
-void sort_sprite(int x, int y, SPRT *sprite, TIM_IMAGE *tim, u_short u, u_short v, u_short w, u_short h) {
+void sort_sprite(int x, int y, SPRT *sprite, TIM_IMAGE *tim, u_short u, u_short v) {
     setSprt(sprite);
     setXY0(sprite, x, y);                 // Set position
     setUV0(sprite, u, v);
-    setWH(sprite, w, h);
+
     addPrim(ot[db], sprite);                  // Sort the primitive and advance
     next_prim += sizeof(SPRT);
+
 
     DR_TPAGE *dr_tpage = (DR_TPAGE *) next_prim;             // Sort the texture page value
     int t_page = getTPage(tim->mode & 0x3, 0, tim->prect->x, tim->prect->y);
     setDrawTPage(dr_tpage, 0, 1,  t_page);
     addPrim(ot[db], dr_tpage);
     next_prim += sizeof(DR_TPAGE);        // Return new primitive pointer (set to nextpri)
-}
-
-void init_sprites() {
-    MEM_INIT_HEAP_3();
-    CDR_INIT();
-    // Acquire crash and cappy tims from cd
-    CdrData *data_crash = cdr_read_file("CRASH.TIM");
-    CdrData *data_cappy = cdr_read_file("CAPPY.TIM");
-    CdrData *data_raichu = cdr_read_file("RAICHU.TIM");
-    CDR_CLOSE();
-
-    // Acquire tim data
-    load_tim_data(&tim_crash, data_crash);
-    load_tim_data(&tim_cappy, data_cappy);
-    load_tim_data(&tim_raichu, data_raichu);
-
-    set_sprite(&tim_crash, &crash_16bit, 0, 0);
-    set_sprite(&tim_cappy, &cappy_8bit, 0, 0);
-    set_sprite(&tim_cappy, &raichu_4bit, 0, 0);
-
-    PutDrawEnv(&draw_env[!db]);
-
-    CDR_DATA_FREE(data_crash);
-    CDR_DATA_FREE(data_raichu);
-    CDR_DATA_FREE(data_cappy);
 }
 
 void display() {
@@ -184,24 +160,41 @@ void display() {
     // Flip current buffer
     db = !db;
     next_prim = prim_buff[db];  // Reset the next primitive pointer
-
-    // Enable display
-    SetDispMask(1);
 }
 
 int main() {
     init_system();
-    init_sprites();
+
+    MEM_INIT_HEAP_3();
+    CDR_INIT();
+    // Acquire crash and cappy tims from cd
+    CdrData *data_crash = cdr_read_file("CRASH.TIM");
+    CdrData *data_cappy = cdr_read_file("CAPPY.TIM");
+    CDR_CLOSE();
+
+    // Acquire tim data
+    load_tim_data(&tim_crash, data_crash);
+    load_tim_data(&tim_cappy, data_cappy);
+
+    set_sprite(&tim_crash, &crash_16bit);
+    set_sprite(&tim_cappy, &cappy_8bit);
+
+    PutDrawEnv(&draw_env[!db]);
+
+    CDR_DATA_FREE(data_crash);
+    CDR_DATA_FREE(data_cappy);
+
+    // Cappy is a sprite sheet, we want one frame only
+    setWH(&cappy_8bit, 64, 64);
 
     while (1) {
         // Clear ot
         ClearOTagR(ot[db], OT_LEN);
 
-        FntPrint("Hello Textured sprites");
+        FntPrint("                  Hello Textured sprites\n");
 
-        sort_sprite(256, 32, &cappy_8bit, &tim_cappy, 128, 64, 64, 64);
-        sort_sprite(0, 0, &crash_16bit, &tim_crash, 0, 0, 256, 256);
-        sort_sprite(256, 128, &raichu_4bit, &tim_raichu, 0, 0, 16, 16);
+        sort_sprite(256, 32, &cappy_8bit, &tim_cappy, 0, 0);
+        sort_sprite(0, 0, &crash_16bit, &tim_crash, 0, 0);
 
         FntFlush(-1);
         display();

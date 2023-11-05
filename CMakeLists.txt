@@ -62,4 +62,6 @@ add_executable(
         projects/hello-debug-font/Main.c
         projects/hello-flat-shaded-polys/Main.c
         projects/hello-textured-sprites/Main.c
+        projects/hello-controllers/Main.c
+        projects/hello-fixed-point-math/Main.c
 )

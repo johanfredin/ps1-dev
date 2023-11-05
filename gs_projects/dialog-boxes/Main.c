@@ -12,7 +12,7 @@ GsOT_TAG minorOrderingTable[GPUB_NUM_BUFFERS][1 << GPUB_OT_LENGTH_STD];
 
 GPUB_OT gpub_ot[GPUB_NUM_BUFFERS];
 DlgBox *dlg_box_fixed;
-Controller g_ctrl;
+DPad g_ctrl;
 
 void init_ots() {
     gpub_init_ot(&gpub_ot[0], &orderingTable[0], minorOrderingTable[0], GPUB_OT_LENGTH_STD);
@@ -35,7 +35,7 @@ void init_dialogs() {
 }
 
 void update() {
-    CTRL_READ_INPUT(&g_ctrl);
+    DPAD_READ_INPUT(&g_ctrl);
     tbx_tick(dlg_box_fixed, &g_ctrl);
     FntPrint("Current btn=%d, complete=%d\n", g_ctrl.curr_btn, dlg_box_fixed->complete);
     if (dlg_box_fixed->complete) {
@@ -65,7 +65,7 @@ int main() {
     Color bg_color = {90, 70, 20};
     MEM_INIT_HEAP_3();
     gpub_init_screen(GPUB_MODE_NTSC, GPUB_FPS_60);
-    CTRL_INIT_P1(&g_ctrl);
+    DPAD_INIT(&g_ctrl);
 
     init_ots();
     gpub_set_bg_color(&bg_color);

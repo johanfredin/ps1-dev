@@ -4,7 +4,7 @@
 
 #include "../../lib/header/GPUBase.h"
 #include "../../lib/header/Logger.h"
-#include "../../lib/header/Controller.h"
+#include "../../lib/header/DPad.h"
 #include "../../lib/header/MemUtils.h"
 #include "../../lib/header/CdReader.h"
 
@@ -28,10 +28,10 @@ int main() {
             {3, 0}
     };
     CdrDATrack current = tracks[0];
-    Controller controller;
+    DPad controller;
     MEM_INIT_HEAP_3();
     CDR_INIT();
-    CTRL_INIT_P1(&controller);
+    DPAD_INIT(&controller);
     gpub_set_bg_color(&snd_bg_color);
     gpub_init_screen(GPUB_MODE_NTSC, GPUB_FPS_60);
     GPUB_INIT_DEBUG_FNT(960, 512, 5, 10, 256, 256, 1, 512);
@@ -41,16 +41,16 @@ int main() {
     // Init sound lib
     while (1) {
         // Check controller input
-        CTRL_READ_INPUT(&controller);
-        if (CTRL_DPAD_LEFT(&controller)) {
+        DPAD_READ_INPUT(&controller);
+        if (DPAD_DPAD_LEFT(&controller)) {
             cdr_da_stop(&current);
             current = tracks[0];
             cdr_da_play(&current);
-        } else if (CTRL_DPAD_RIGHT(&controller)) {
+        } else if (DPAD_DPAD_RIGHT(&controller)) {
             cdr_da_stop(&current);
             current = tracks[1];
             cdr_da_play(&current);
-        } else if(CTRL_DPAD_DOWN(&controller)) {
+        } else if(DPAD_DPAD_DOWN(&controller)) {
             cdr_da_stop(&current);
         }
 

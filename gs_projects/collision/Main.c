@@ -19,7 +19,7 @@ const u_short gpub_screen_w = 320;
 const u_short gpub_screen_h = 240;
 
 Player *player;
-Controller g_ctrl;
+DPad g_ctrl;
 GsBOXF bounds[NUM_BOUNDS] = { // Use GsBOXF so we can render them simply
         {1, 100, 100, 50,  50, 255, 0,   0},
         {1, 175, 100, 100, 1,  155, 10,  0},
@@ -92,7 +92,7 @@ int main() {
     init_player();
     CDR_CLOSE();
 
-    CTRL_INIT_P1(&g_ctrl);
+    DPAD_INIT(&g_ctrl);
     while (1) {
         update();
         draw();

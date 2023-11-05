@@ -10,7 +10,7 @@
     cb = MEM_MALLOC_3(CollisionBlock);                       \
     cb->bounds = MEM_CALLOC_3(bounds_cnt, RECT)
 
-extern Controller *g_ctrl;
+extern DPad g_ctrl;
 
 void map_init(u_char level, Player *player, Camera *camera);
 void map_tick();

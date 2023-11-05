@@ -58,28 +58,28 @@ void gobj_draw_bounds(GameObject *gobj) {
     GPUB_GS_SORT_BOX_FILL(&boxf);
 }
 
-void gobj_player_tick(Player *p, Controller *ctrl) {
+void gobj_player_tick(Player *p, DPad *ctrl) {
     if (p->gobj->can_move) {
         // Set old pos
         p->gobj->old_x = p->gobj->sprite->x;
         p->gobj->old_y = p->gobj->sprite->y;
         p->gobj->x_speed = p->gobj->y_speed = 0;
 
-        CTRL_READ_INPUT(ctrl);
+        DPAD_READ_INPUT(ctrl);
         p->gobj->heading = 0;
-        if (CTRL_DPAD_DOWN(ctrl)) {
+        if (DPAD_DPAD_DOWN(ctrl)) {
             p->gobj->y_speed = GOBJ_P_VEL_Y;
             p->gobj->heading = GOBJ_HEADING_DOWN;
         }
-        if (CTRL_DPAD_UP(ctrl)) {
+        if (DPAD_DPAD_UP(ctrl)) {
             p->gobj->y_speed = -GOBJ_P_VEL_Y;
             p->gobj->heading = GOBJ_HEADING_UP;
         }
-        if (CTRL_DPAD_LEFT(ctrl)) {
+        if (DPAD_DPAD_LEFT(ctrl)) {
             p->gobj->x_speed = -GOBJ_P_VEL_X;
             p->gobj->heading = GOBJ_HEADING_LEFT;
         }
-        if (CTRL_DPAD_RIGHT(ctrl)) {
+        if (DPAD_DPAD_RIGHT(ctrl)) {
             p->gobj->x_speed = GOBJ_P_VEL_X;
             p->gobj->heading = GOBJ_HEADING_RIGHT;
         }

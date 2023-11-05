@@ -21,7 +21,7 @@ FR_TileSet **g_map_tile_sets;
 CdrData **g_map_cdr_data_assets;
 Font *g_fnt;
 VerticalGoraudColor *g_canvas_clr;
-Controller *g_ctrl;
+DPad g_ctrl;
 
 Player *g_player;
 Camera *g_camera;
@@ -80,7 +80,7 @@ void map_init(u_char level, Player *player, Camera *camera) {
     init_frame(&g_map_frames[g_frame_cnt++], "TS8_IN3.JSON", &tracks[1]);
 
     // Init controller
-    g_ctrl = ctrl_init(CTRL_PLAYER_1);
+    DPAD_INIT(&g_ctrl);
 
     // Cleanup
     for (u_char i = 0; i < g_assets_cnt; i++) {
@@ -369,7 +369,7 @@ void map_ot_sort_hud_layer() {
 
 void map_tick() {
     Frame *frame = &g_map_frames[g_current_frame];
-    gobj_player_tick(g_player, g_ctrl);
+    gobj_player_tick(g_player, &g_ctrl);
     handle_teleport_collision(g_player->gobj, frame);
     handle_block_collision(g_player->gobj, frame);
     handle_dialog_collision(g_player->gobj, frame);
@@ -443,8 +443,8 @@ void handle_dialog_collision(GameObject *gobj, Frame *frame) {
         for (u_char i = 0; i < frame->d_amount; i++) {
             FR_Dialog *d = &dialogs[i];
             if (chdlr_overlaps(gobj->bounds, &d->bounds)) {
-                CTRL_READ_INPUT(g_ctrl);
-                if (CTRL_BTN_INTERACT(g_ctrl)) {
+                DPAD_READ_INPUT(&g_ctrl);
+                if (DPAD_BTN_INTERACT(&g_ctrl)) {
                     d->content->complete = 0;
                     d->initialized = 1;
                     d->content->started = 1;
@@ -458,7 +458,7 @@ void handle_dialog_collision(GameObject *gobj, Frame *frame) {
                 }
             }
             if (d->initialized) {
-                tbx_tick(d->content, g_ctrl);
+                tbx_tick(d->content, &g_ctrl);
             }
         }
     }

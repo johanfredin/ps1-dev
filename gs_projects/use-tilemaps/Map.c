@@ -13,7 +13,7 @@
 Frame *g_map_frames;
 FR_TileSet **g_map_tile_sets;
 CdrData **g_map_cdr_data_assets;
-Controller *g_ctrl;
+DPad g_ctrl;
 
 Player *g_player;
 Camera *g_camera;
@@ -52,7 +52,7 @@ void map_init(u_char level, Player *player, Camera *camera) {
     init_frame(&g_map_frames[g_frame_cnt++], "L1_WRLD.JSON");
 
     // Init controller
-    g_ctrl = ctrl_init(CTRL_PLAYER_1);
+    DPAD_INIT(&g_ctrl);
 
     // Cleanup
     for (i = 0; i < g_assets_cnt; i++) {
@@ -252,7 +252,7 @@ void map_ot_sort_fg_layers() {
 
 void map_tick() {
     Frame *frame = &g_map_frames[g_current_frame];
-    gobj_player_tick(g_player, g_ctrl);
+    gobj_player_tick(g_player, &g_ctrl);
     handle_block_collision(g_player->gobj, frame);
 }
 

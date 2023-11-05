@@ -13,7 +13,7 @@
 
 Player *player;
 Camera camera;
-Controller g_ctrl;
+DPad g_ctrl;
 GsBOXF bounds[NUM_BOUNDS] = { // Use GsBOXF so we can render them simply
         {1, 100, 100, 50,  50, 255, 0,   0},
         {1, 175, 100, 100, 1,  155, 10,  0},
@@ -108,7 +108,7 @@ int main() {
     init_players();
 
     CDR_CLOSE();
-    CTRL_INIT_P1(&g_ctrl);
+    DPAD_INIT(&g_ctrl);
     gobj_camera_init(&camera, player->gobj);
     while (1) {
         update();

@@ -6,7 +6,7 @@
 #include <libgpu.h>
 #include <libgs.h>
 
-#include "Controller.h"
+#include "DPad.h"
 
 #define GOBJ_TYPE_PLAYER 0x0
 #define GOBJ_TYPE_NPC 0x1
@@ -137,7 +137,7 @@ void gobj_tick(GameObject *game_object);
 Player *gobj_player_init(Animation *anim, GameObject *gobj, u_char p_num);
 void gobj_player_draw(Player *p);
 void gobj_draw_bounds(GameObject *gobj);
-void gobj_player_tick(Player *p, Controller *ctrl);
+void gobj_player_tick(Player *p, DPad *ctrl);
 
 void gobj_camera_init(Camera *cam, GameObject *obj_in_focus);
 void gobj_camera_tick(Camera *cam);

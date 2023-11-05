@@ -30,7 +30,7 @@ Camera camera;
 DlgBox dlg_box_fixed;
 char *animated_messages[2];
 
-Controller g_ctrl;
+DPad g_ctrl;
 
 GsBOXF bounds[NUM_BOUNDS] = { // Use GsBOXF so we can render them simply
         {1, 100, 100, 50,  50, 255, 0,   0},
@@ -79,7 +79,7 @@ int main() {
     TBX_INIT_VERT_GORAUD_COLOR(&fixed_color, 50, 50, 10, 100, 100, 200);
     animated_messages[0] = "Animated Message works!";
     animated_messages[1] = "Johan is cool";
-    CTRL_INIT_P1(&g_ctrl);
+    DPAD_INIT(&g_ctrl);
     Dialog *dlg = txt_dlg_init(animated_messages, "yolo", 2, &fnt, 5, 30, 70, 1);
     dlg_box_fixed = *tbx_init_dlg_box(20, 60, 260, 0, 200, 60, &canvas_color, dlg);
     gobj_camera_init(&camera, NULL);
@@ -90,17 +90,17 @@ int main() {
         gpub_clear_ot(&gpub_ot[gpub_current_buffer][OT_HUD]);
 
         // Move camera depending on input
-        CTRL_READ_INPUT(&g_ctrl);
-        if (CTRL_DPAD_LEFT(&g_ctrl)) {
+        DPAD_READ_INPUT(&g_ctrl);
+        if (DPAD_DPAD_LEFT(&g_ctrl)) {
             camera.x -= CAM_SPEED;
         }
-        if (CTRL_DPAD_RIGHT(&g_ctrl)) {
+        if (DPAD_DPAD_RIGHT(&g_ctrl)) {
             camera.x += CAM_SPEED;
         }
-        if (CTRL_DPAD_UP(&g_ctrl)) {
+        if (DPAD_DPAD_UP(&g_ctrl)) {
             camera.y -= CAM_SPEED;
         }
-        if (CTRL_DPAD_DOWN(&g_ctrl)) {
+        if (DPAD_DPAD_DOWN(&g_ctrl)) {
             camera.y += CAM_SPEED;
         }
 

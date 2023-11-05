@@ -41,7 +41,7 @@ void tbx_draw(DlgBox *box) {
     txt_dlg_draw(box->dlg);
 }
 
-void tbx_tick(DlgBox *box, Controller *ctrl) {
+void tbx_tick(DlgBox *box, DPad *ctrl) {
     short x = box->x, y = box->y;
     short w = box->w, h = box->h;
 
@@ -49,7 +49,7 @@ void tbx_tick(DlgBox *box, Controller *ctrl) {
         return;
     }
 
-    if (CTRL_BTN_INTERACT(ctrl)) {
+    if (DPAD_BTN_INTERACT(ctrl)) {
         box->started = 1;
     }
 
@@ -73,7 +73,7 @@ void tbx_tick(DlgBox *box, Controller *ctrl) {
             if (h >= box->target_h) {
                 h = box->target_h;
                 txt_dlg_tick(box->dlg);
-                if (CTRL_BTN_INTERACT(ctrl)) {
+                if (DPAD_BTN_INTERACT(ctrl)) {
                     txt_next_msg(box->dlg, 1);
                 }
             }

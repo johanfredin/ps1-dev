@@ -25,7 +25,7 @@ add_executable(
         lib/header/FntLogger.h
         lib/header/TextBox.h
         lib/header/TxtHandler.h
-        lib/header/Controller.h
+        lib/header/DPad.h
         lib/header/CollisionHandler.h
 
         lib/source/AssetManager.c
@@ -39,7 +39,6 @@ add_executable(
         lib/source/TileFetcher.c
         lib/source/TextBox.c
         lib/source/TxtHandler.c
-        lib/source/Controller.c
         lib/source/CollisionHandler.c
 
         # LIBGS Projects
@@ -64,4 +63,6 @@ add_executable(
         projects/hello-textured-sprites/Main.c
         projects/hello-controllers/Main.c
         projects/hello-fixed-point-math/Main.c
+        lib/header/Controller.h
+        lib/source/Controller.c
 )
